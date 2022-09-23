@@ -2,10 +2,24 @@
   {
     "type": "chunk",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "nil_literal",
+          "named": true
+        }
+      ]
+    }
   },
   {
-    "type": "TODO",
+    "type": ";",
     "named": false
+  },
+  {
+    "type": "nil_literal",
+    "named": true
   }
 ]

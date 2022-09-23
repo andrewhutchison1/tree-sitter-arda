@@ -4,6 +4,44 @@ module.exports = grammar({
 
     rules: {
         chunk: $ =>
-            optional('TODO'),
+            optional($._expression_sequence),
+
+        _expression_sequence: $ =>
+            separated1($._expression, ';'),
+
+        _expression: $ =>
+            prec.left(
+                choice(
+                    $._literal
+                )
+            ),
+
+        //===
+        // Literals
+        //===
+
+        _literal: $ =>
+            choice(
+                $._atomic_literal,
+            ),
+
+        _atomic_literal: $ =>
+            choice(
+                $.nil_literal,
+            ),
+
+        nil_literal: $ => token(seq('(', ')')),
     }
 });
+
+function separated1(rule, sep, {trailing=true}={}) {
+    return seq(
+        rule,
+        repeat(seq(sep, rule)),
+        ...(trailing ? [optional(sep)] : [])
+    );
+}
+
+function separated(rule, sep, {trailing=true}={}) {
+    return optional(separated1(rule, sep, {trailing}));
+}
