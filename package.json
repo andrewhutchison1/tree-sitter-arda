@@ -1,0 +1,28 @@
+{
+  "name": "tree-sitter-arda",
+  "version": "0.0.1",
+  "description": "Tree-sitter grammar for the Arda programming language",
+  "main": "bindings/node",
+  "scripts": {
+    "test": "tree-sitter test",
+    "gen": "tree-sitter generate"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andrewhutchison1/tree-sitter-arda.git"
+  },
+  "keywords": [
+    "arda",
+    "tree-sitter"
+  ],
+  "author": "Andrew",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andrewhutchison1/tree-sitter-arda/issues"
+  },
+  "homepage": "https://github.com/andrewhutchison1/tree-sitter-arda#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.20",
+    "tree-sitter-cli": "^0.20.7"
+  }
+}
