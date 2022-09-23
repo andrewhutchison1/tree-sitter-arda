@@ -1,26 +1,42 @@
 ===
-lit.atomic
+lit.nil
 ===
 ();
 ( );
-true; false;
 ---
 (chunk
     (nil_literal)
-    (nil_literal)
+    (nil_literal))
+
+===
+lit.bool
+===
+true; false;
+---
+(chunk
     (bool_literal)
     (bool_literal))
 
 ===
-lit.atomic.int
+lit.int
 ===
-0;      1010101;    0123456;        0123456789;
-1_0_1;  0123_456;   0_12345_678_9;  000000000001;
+0;      1010101;    000000000;      0123456789;
+1_0_1;  0123_456;   0_12345_678_9;  0000000000_0;
 
 0x0;   0x000;    0x0123456789abcdefABCDEF; 0X0123456789abcdefABCDEF;
 0x_0;  0x0_0;    0x0_12345_6_789abcdefAB_C_DEF; 0X_01_2345_6789_abcd_efAB_CDEF;
+
+0b0;    0b1010101;  0b11111;    0b00000000;
+0b_0;   0b1_0_1_0;  0b11_11_1;  0b00000000_00000000;
+
+0o0;    0o01234567; 0o000000000; 0o777777777;
+0o_0;    0o0_1234567; 0o_000000_0_0_0; 0o777_777_777;
 ---
 (chunk
+    (int_literal) (int_literal) (int_literal) (int_literal)
+    (int_literal) (int_literal) (int_literal) (int_literal)
+    (int_literal) (int_literal) (int_literal) (int_literal)
+    (int_literal) (int_literal) (int_literal) (int_literal)
     (int_literal) (int_literal) (int_literal) (int_literal)
     (int_literal) (int_literal) (int_literal) (int_literal)
     (int_literal) (int_literal) (int_literal) (int_literal)
