@@ -21,11 +21,20 @@
           "named": true
         },
         {
+          "type": "int_literal",
+          "named": true
+        },
+        {
           "type": "nil_literal",
           "named": true
         }
       ]
     }
+  },
+  {
+    "type": "int_literal",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "nil_literal",

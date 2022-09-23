@@ -10,3 +10,18 @@ true; false;
     (nil_literal)
     (bool_literal)
     (bool_literal))
+
+===
+lit.atomic.int
+===
+0;      1010101;    0123456;        0123456789;
+1_0_1;  0123_456;   0_12345_678_9;  000000000001;
+
+0x0;   0x000;    0x0123456789abcdefABCDEF; 0X0123456789abcdefABCDEF;
+0x_0;  0x0_0;    0x0_12345_6_789abcdefAB_C_DEF; 0X_01_2345_6789_abcd_efAB_CDEF;
+---
+(chunk
+    (int_literal) (int_literal) (int_literal) (int_literal)
+    (int_literal) (int_literal) (int_literal) (int_literal)
+    (int_literal) (int_literal) (int_literal) (int_literal)
+    (int_literal) (int_literal) (int_literal) (int_literal))
