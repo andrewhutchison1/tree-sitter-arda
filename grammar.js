@@ -33,11 +33,11 @@ module.exports = grammar({
             $.bool_literal,
             $.int_literal,
             $.float_literal,
+            $.string_literal
         ),
 
         nil_literal:    $ => seq('(', ')'),
         bool_literal:   $ => choice('true', 'false'),
-
 
         int_literal: $ => token(choice(
             intercalated(/[0-9]/, '_'),
@@ -72,7 +72,32 @@ module.exports = grammar({
                     seq(optional(digits), '.', digits, exp)
                 )
             ));
-        }
+        },
+        
+        string_literal: $ => {
+            const make_string_literal = (quote, char) => seq(
+                quote,
+                repeat(choice($.escape_sequence, char)),
+                token.immediate(quote)
+            );
+
+            return choice(
+                make_string_literal('\'', /[^'\\\n]+/),
+                make_string_literal('"', /[^"\\\n]+/)
+            );
+        },
+
+        escape_sequence: $ => token.immediate(
+            seq(
+                '\\',
+                choice(
+                    /[^xu\n]/,
+                    /u[0-9a-fA-F]{4}/,
+                    /u{[0-9a-fA-F]+}/,
+                    /x[0-9a-fA-F]{2}/
+                )
+            )
+        ),
     }
 });
 

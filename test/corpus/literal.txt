@@ -69,3 +69,43 @@ lit.float.hex
     (float_literal)
     (float_literal)
     (float_literal))
+
+===
+lit.str.squote
+===
+'';
+'hello';
+'\n\r\t\0\x0a\uABCD\u{0}'
+---
+(chunk
+    (string_literal)
+    (string_literal)
+    (string_literal
+        (escape_sequence)
+        (escape_sequence)
+        (escape_sequence)
+        (escape_sequence)
+        (escape_sequence)
+        (escape_sequence)
+        (escape_sequence)))
+
+===
+lit.str.dquote
+===
+"";
+"a";
+"hello";
+"\n\r\t\0\x0a\uABCD\u{0}"
+---
+(chunk
+    (string_literal)
+    (string_literal)
+    (string_literal)
+    (string_literal
+        (escape_sequence)
+        (escape_sequence)
+        (escape_sequence)
+        (escape_sequence)
+        (escape_sequence)
+        (escape_sequence)
+        (escape_sequence)))
