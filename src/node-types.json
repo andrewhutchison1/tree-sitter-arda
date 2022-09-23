@@ -1,5 +1,10 @@
 [
   {
+    "type": "boolean_literal",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "chunk",
     "named": true,
     "fields": {},
@@ -7,6 +12,10 @@
       "multiple": true,
       "required": false,
       "types": [
+        {
+          "type": "boolean_literal",
+          "named": true
+        },
         {
           "type": "nil_literal",
           "named": true
@@ -29,6 +38,14 @@
   },
   {
     "type": ";",
+    "named": false
+  },
+  {
+    "type": "false",
+    "named": false
+  },
+  {
+    "type": "true",
     "named": false
   }
 ]

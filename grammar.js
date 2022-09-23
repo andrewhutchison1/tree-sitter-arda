@@ -28,9 +28,11 @@ module.exports = grammar({
         _atomic_literal: $ =>
             choice(
                 $.nil_literal,
+                $.boolean_literal
             ),
 
-        nil_literal: $ => seq('(', ')'),
+        nil_literal:        $ => seq('(', ')'),
+        boolean_literal:    $ => choice('true', 'false')
     }
 });
 

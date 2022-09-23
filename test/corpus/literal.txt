@@ -1,7 +1,12 @@
 ===
-lit.nil
+lit.atomic
 ===
 ();
-( )
+( );
+true; false
 ---
-(chunk (nil_literal) (nil_literal))
+(chunk
+    (nil_literal)
+    (nil_literal)
+    (boolean_literal)
+    (boolean_literal))
