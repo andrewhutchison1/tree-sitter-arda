@@ -41,3 +41,31 @@ lit.int
     (int_literal) (int_literal) (int_literal) (int_literal)
     (int_literal) (int_literal) (int_literal) (int_literal)
     (int_literal) (int_literal) (int_literal) (int_literal))
+
+===
+lit.float.dec
+===
+1e1;
+0.0;
+.1;
+.1E-3
+---
+(chunk
+    (float_literal)
+    (float_literal)
+    (float_literal)
+    (float_literal))
+
+===
+lit.float.hex
+===
+0xfp1;
+0xf.p1;
+0xf.p3;
+0xa.abcP-2;
+---
+(chunk
+    (float_literal)
+    (float_literal)
+    (float_literal)
+    (float_literal))

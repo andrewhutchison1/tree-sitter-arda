@@ -31,7 +31,8 @@ module.exports = grammar({
         _atomic_literal: $ => choice(
             $.nil_literal,
             $.bool_literal,
-            $.int_literal
+            $.int_literal,
+            $.float_literal,
         ),
 
         nil_literal:    $ => seq('(', ')'),
@@ -43,6 +44,34 @@ module.exports = grammar({
             make_int_pattern(/[01]/,        {radix: /0[bB]/}),
             make_int_pattern(/[0-7]/,       {radix: /0[oO]/})
         ),
+
+        float_literal: $ => choice(
+            $._dec_float_literal,
+            $._hex_float_literal,
+        ),
+
+        _dec_float_literal: $ => {
+            const digits = /[0-9]+/;
+            const exp = /(e|E)(-|\+)?[0-9]+/;
+
+            return token(choice(
+                seq(digits, choice(exp, seq('.', optional(exp)))),
+                seq(optional(digits), '.', digits, optional(exp))
+            ));
+        },
+
+        _hex_float_literal: $ => {
+            const digits = /[0-9a-fA-F]+/;
+            const exp = /(p|P)(-|\+)?[0-9]+/;
+
+            return token(seq(
+                /0[xX]/,
+                choice(
+                    seq(digits, optional('.'), exp),
+                    seq(optional(digits), '.', digits, exp)
+                )
+            ));
+        }
     }
 });
 

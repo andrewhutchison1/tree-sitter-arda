@@ -17,6 +17,10 @@
           "named": true
         },
         {
+          "type": "float_literal",
+          "named": true
+        },
+        {
           "type": "identifier",
           "named": true
         },
@@ -30,6 +34,11 @@
         }
       ]
     }
+  },
+  {
+    "type": "float_literal",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "int_literal",
