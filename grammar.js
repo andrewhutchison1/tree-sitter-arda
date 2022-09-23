@@ -38,12 +38,13 @@ module.exports = grammar({
         nil_literal:    $ => seq('(', ')'),
         bool_literal:   $ => choice('true', 'false'),
 
-        int_literal: $ => choice(
-            make_int_pattern(/[0-9]/),
-            make_int_pattern(/[0-9a-fA-F]/, {radix: /0[xX]/}),
-            make_int_pattern(/[01]/,        {radix: /0[bB]/}),
-            make_int_pattern(/[0-7]/,       {radix: /0[oO]/})
-        ),
+
+        int_literal: $ => token(choice(
+            intercalated(/[0-9]/, '_'),
+            seq(/0[xX]/, optional('_'), intercalated(/[0-9a-fA-F]/, '_')),
+            seq(/0[bB]/, optional('_'), intercalated(/[01]/, '_')),
+            seq(/0[oO]/, optional('_'), intercalated(/[0-7]/, '_')),
+        )),
 
         float_literal: $ => choice(
             $._dec_float_literal,
@@ -87,13 +88,12 @@ function separated(rule, sep, {trailing=true}={}) {
     return optional(separated1(rule, sep, {trailing}));
 }
 
-function make_int_pattern(digit, {radix}={}) {
-    const start = radix ? [radix, optional('_'), digit] : [digit];
-
-    const rules = [
-        ...start,
-        repeat(seq(optional('_'), repeat1(digit)))
-    ];
-
-    return token(seq(...rules));
+function intercalated(rule, sep) {
+    return seq(
+        rule,
+        repeat(choice(
+            rule,
+            seq(sep, rule)
+        ))
+    );
 }

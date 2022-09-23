@@ -41,11 +41,6 @@
     "fields": {}
   },
   {
-    "type": "int_literal",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "nil_literal",
     "named": true,
     "fields": {}
@@ -72,6 +67,10 @@
   },
   {
     "type": "identifier",
+    "named": true
+  },
+  {
+    "type": "int_literal",
     "named": true
   },
   {
