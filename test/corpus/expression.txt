@@ -1,0 +1,13 @@
+===
+expr.ident
+===
+hello;
+_;
+_a000;
+_0_;
+---
+(chunk
+    (identifier)
+    (identifier)
+    (identifier)
+    (identifier))

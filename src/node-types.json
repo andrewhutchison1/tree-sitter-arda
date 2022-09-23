@@ -1,6 +1,6 @@
 [
   {
-    "type": "boolean_literal",
+    "type": "bool_literal",
     "named": true,
     "fields": {}
   },
@@ -13,7 +13,11 @@
       "required": false,
       "types": [
         {
-          "type": "boolean_literal",
+          "type": "bool_literal",
+          "named": true
+        },
+        {
+          "type": "identifier",
           "named": true
         },
         {
@@ -41,8 +45,16 @@
     "named": false
   },
   {
+    "type": "comment",
+    "named": true
+  },
+  {
     "type": "false",
     "named": false
+  },
+  {
+    "type": "identifier",
+    "named": true
   },
   {
     "type": "true",

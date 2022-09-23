@@ -2,6 +2,9 @@
 module.exports = grammar({
     name: 'arda',
 
+    word:   $ => $.identifier,
+    extras: $ => [/\s/, $.comment],
+
     rules: {
         chunk: $ =>
             optional($._expression_sequence),
@@ -12,27 +15,29 @@ module.exports = grammar({
         _expression: $ =>
             prec.left(
                 choice(
+                    $.identifier,
                     $._literal
                 )
             ),
 
-        //===
-        // Literals
-        //===
+        //---
+        // Identifiers, literals and comments
+        //---
 
-        _literal: $ =>
-            choice(
-                $._atomic_literal,
-            ),
+        identifier: $ => token(/[a-zA-Z_][a-zA-Z0-9_]*/),
+        comment:    $ => token(/#.*/),
 
-        _atomic_literal: $ =>
-            choice(
-                $.nil_literal,
-                $.boolean_literal
-            ),
+        _literal: $ => choice(
+            $._atomic_literal,
+        ),
 
-        nil_literal:        $ => seq('(', ')'),
-        boolean_literal:    $ => choice('true', 'false')
+        _atomic_literal: $ => choice(
+            $.nil_literal,
+            $.bool_literal
+        ),
+
+        nil_literal:    $ => seq('(', ')'),
+        bool_literal:   $ => choice('true', 'false')
     }
 });
 

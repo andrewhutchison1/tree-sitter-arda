@@ -3,10 +3,10 @@ lit.atomic
 ===
 ();
 ( );
-true; false
+true; false;
 ---
 (chunk
     (nil_literal)
     (nil_literal)
-    (boolean_literal)
-    (boolean_literal))
+    (bool_literal)
+    (bool_literal))
