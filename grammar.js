@@ -30,7 +30,7 @@ module.exports = grammar({
                 $.nil_literal,
             ),
 
-        nil_literal: $ => token(seq('(', ')')),
+        nil_literal: $ => seq('(', ')'),
     }
 });
 

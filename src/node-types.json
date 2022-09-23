@@ -15,11 +15,20 @@
     }
   },
   {
-    "type": ";",
+    "type": "nil_literal",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "(",
     "named": false
   },
   {
-    "type": "nil_literal",
-    "named": true
+    "type": ")",
+    "named": false
+  },
+  {
+    "type": ";",
+    "named": false
   }
 ]

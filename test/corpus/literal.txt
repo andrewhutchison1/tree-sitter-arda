@@ -1,6 +1,7 @@
 ===
 lit.nil
 ===
-()
+();
+( )
 ---
-(chunk (nil_literal))
+(chunk (nil_literal) (nil_literal))
