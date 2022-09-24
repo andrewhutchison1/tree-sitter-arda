@@ -26,6 +26,7 @@ module.exports = grammar({
 
         _literal: $ => choice(
             $._atomic_literal,
+            $._compound_literal
         ),
 
         _atomic_literal: $ => choice(
@@ -34,8 +35,13 @@ module.exports = grammar({
             $.bool_literal,
             $.int_literal,
             $.float_literal,
-            $.string_literal
+            $.str_literal
         ),
+
+        _compound_literal: $ => choice(
+            $.tuple_literal,
+            $.record_literal,
+        ),    
 
         nil_literal:    $ => seq('(', ')'),
         sym_literal:    $ => token(seq(':', /[a-zA-Z_][a-zA-Z0-9]*/)),
@@ -76,17 +82,20 @@ module.exports = grammar({
             ));
         },
         
-        string_literal: $ => {
-            const make_string_literal = (quote, char) => seq(
+        str_literal: $ => {
+            const make_str_literal = (quote, char) => seq(
                 quote,
                 repeat(choice($.escape_sequence, char)),
                 token.immediate(quote)
             );
 
-            return choice(
-                make_string_literal('\'', /[^'\\\n]+/),
-                make_string_literal('"', /[^"\\\n]+/)
-            );
+            const squoted = make_str_literal('\'', /[^'\\\n]+/);
+            const dquoted = make_str_literal('"', /[^"\\\n]+/);
+
+            return repeat1(choice(
+                squoted,
+                dquoted
+            ));
         },
 
         escape_sequence: $ => token.immediate(
@@ -99,6 +108,18 @@ module.exports = grammar({
                     /x[0-9a-fA-F]{2}/
                 )
             )
+        ),
+
+        tuple_literal: $ => prec.left(seq(
+            '(', $._expression, ',', separated($._expression, ','), ')'
+        )),
+
+        record_literal: $ => seq('{', separated($.record_pair, ','), '}'),
+
+        record_pair: $ => seq(
+            choice($.identifier, $.sym_literal, $.str_literal),
+            '=',
+            $._expression
         ),
     }
 });

@@ -90,9 +90,9 @@ lit.str.squote
 '\n\r\t\0\x0a\uABCD\u{0}'
 ---
 (chunk
-    (string_literal)
-    (string_literal)
-    (string_literal
+    (str_literal)
+    (str_literal)
+    (str_literal
         (escape_sequence)
         (escape_sequence)
         (escape_sequence)
@@ -110,10 +110,10 @@ lit.str.dquote
 "\n\r\t\0\x0a\uABCD\u{0}"
 ---
 (chunk
-    (string_literal)
-    (string_literal)
-    (string_literal)
-    (string_literal
+    (str_literal)
+    (str_literal)
+    (str_literal)
+    (str_literal
         (escape_sequence)
         (escape_sequence)
         (escape_sequence)
@@ -121,3 +121,45 @@ lit.str.dquote
         (escape_sequence)
         (escape_sequence)
         (escape_sequence)))
+
+===
+lit.str.joined
+===
+"a" "b";
+"a" '\n' "a\n"
+---
+(chunk
+    (str_literal)
+    (str_literal (escape_sequence) (escape_sequence)))
+
+===
+lit.tuple
+===
+(0,);
+(0,0);
+---
+(chunk
+    (tuple_literal (int_literal))
+    (tuple_literal (int_literal) (int_literal)))
+
+===
+lit.record
+===
+{};
+{a=0};
+{:a=1,};
+{a=0,b=1};
+{'a'=3, "b"='g'}
+---
+(chunk
+    (record_literal)
+    (record_literal
+        (record_pair (identifier) (int_literal)))
+    (record_literal
+        (record_pair (sym_literal) (int_literal)))
+    (record_literal
+        (record_pair (identifier) (int_literal))
+        (record_pair (identifier) (int_literal)))
+    (record_literal
+        (record_pair (str_literal) (int_literal))
+        (record_pair (str_literal) (str_literal))))
