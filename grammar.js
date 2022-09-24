@@ -20,6 +20,7 @@ module.exports = grammar({
             choice(
                 $._binary_op,
                 $._unary_op,
+                seq('(', $._expression, ')'),
                 $.identifier,
                 $._literal
             )
@@ -64,8 +65,7 @@ module.exports = grammar({
 
         _literal: $ => choice(
             $._atomic_literal,
-            $._compound_literal,
-            seq('(', $._expression, ')')
+            $._compound_literal
         ),
 
         _atomic_literal: $ => choice(
@@ -120,7 +120,7 @@ module.exports = grammar({
                 )
             ));
         },
-        
+
         str_literal: $ => {
             const make_str_literal = (quote, char) => seq(
                 quote,
