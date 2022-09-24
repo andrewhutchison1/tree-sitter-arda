@@ -73,8 +73,15 @@ a * b % c;
 expr.if
 ===
 if a then b end;
+if a + b then false else 4 end;
 ---
 (chunk
     (if_expression
         condition:      (identifier)
-        branch_then:    (identifier)))
+        branch_then:    (identifier))
+    (if_expression
+        condition:      (add_expression
+            left:   (identifier)
+            right:  (identifier))
+        branch_then:    (bool_literal)
+        branch_else:    (int_literal)))
