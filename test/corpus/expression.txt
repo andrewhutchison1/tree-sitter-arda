@@ -15,18 +15,23 @@ _0_;
 ===
 expr.binop
 ===
-a+b;
+a+b; a+b+c;
 a-b;
 a*b;
 a/b;
 a%b;
+a**b;
+a**b**c;
 ---
 (chunk
     (add_expression (identifier) (identifier))
+    (add_expression (add_expression (identifier) (identifier)) (identifier))
     (sub_expression (identifier) (identifier))
     (mul_expression (identifier) (identifier))
     (div_expression (identifier) (identifier))
-    (mod_expression (identifier) (identifier)))
+    (mod_expression (identifier) (identifier))
+    (pow_expression (identifier) (identifier))
+    (pow_expression (identifier) (pow_expression (identifier) (identifier))))
 
 ===
 expr.binop.prec
@@ -34,7 +39,8 @@ expr.binop.prec
 a + b * c + d;
 (a + b) * (c + d);
 a - b / c + d % e;
-a * b % c
+a * b % c;
+-a - -b + -(-(c));
 ---
 (chunk
     (add_expression
@@ -56,4 +62,9 @@ a * b % c
             (identifier)))
     (mod_expression
         (mul_expression (identifier) (identifier))
-        (identifier)))
+        (identifier))
+    (add_expression
+        (sub_expression
+            (negate_expression (identifier))
+            (negate_expression (identifier)))
+        (negate_expression (negate_expression (identifier)))))

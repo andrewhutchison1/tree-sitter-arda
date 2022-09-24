@@ -63,6 +63,10 @@
           },
           {
             "type": "SYMBOL",
+            "name": "_unary_op"
+          },
+          {
+            "type": "SYMBOL",
             "name": "identifier"
           },
           {
@@ -94,6 +98,10 @@
         {
           "type": "SYMBOL",
           "name": "mod_expression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "pow_expression"
         }
       ]
     },
@@ -254,6 +262,73 @@
           {
             "type": "FIELD",
             "name": "right",
+            "content": {
+              "type": "SYMBOL",
+              "name": "_expression"
+            }
+          }
+        ]
+      }
+    },
+    "pow_expression": {
+      "type": "PREC_RIGHT",
+      "value": 2,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "FIELD",
+            "name": "left",
+            "content": {
+              "type": "SYMBOL",
+              "name": "_expression"
+            }
+          },
+          {
+            "type": "FIELD",
+            "name": "op",
+            "content": {
+              "type": "STRING",
+              "value": "**"
+            }
+          },
+          {
+            "type": "FIELD",
+            "name": "right",
+            "content": {
+              "type": "SYMBOL",
+              "name": "_expression"
+            }
+          }
+        ]
+      }
+    },
+    "_unary_op": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "negate_expression"
+        }
+      ]
+    },
+    "negate_expression": {
+      "type": "PREC_LEFT",
+      "value": 3,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "FIELD",
+            "name": "operator",
+            "content": {
+              "type": "STRING",
+              "value": "-"
+            }
+          },
+          {
+            "type": "FIELD",
+            "name": "operand",
             "content": {
               "type": "SYMBOL",
               "name": "_expression"

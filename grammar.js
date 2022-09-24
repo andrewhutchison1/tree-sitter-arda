@@ -1,4 +1,5 @@
 const PREC = {
+    PREFIX: 3,
     MULTIPLICATIVE: 2,
     ADDITIVE: 1,
     ASSIGN: 0,
@@ -18,6 +19,7 @@ module.exports = grammar({
         _expression: $ => prec.left(
             choice(
                 $._binary_op,
+                $._unary_op,
                 $.identifier,
                 $._literal
             )
@@ -26,19 +28,32 @@ module.exports = grammar({
         //---
         // Binary operators
         //---
+
         _binary_op: $ => choice(
             $.add_expression,
             $.sub_expression,
             $.mul_expression,
             $.div_expression,
             $.mod_expression,
+            $.pow_expression,
         ),
 
-        add_expression: $ => infix_binary_op($, '+', PREC.ADDITIVE),
-        sub_expression: $ => infix_binary_op($, '-', PREC.ADDITIVE),
-        mul_expression: $ => infix_binary_op($, '*', PREC.MULTIPLICATIVE),
-        div_expression: $ => infix_binary_op($, '/', PREC.MULTIPLICATIVE),
-        mod_expression: $ => infix_binary_op($, '%', PREC.MULTIPLICATIVE),
+        add_expression: $ => infix_binary_op($, '+',    PREC.ADDITIVE),
+        sub_expression: $ => infix_binary_op($, '-',    PREC.ADDITIVE),
+        mul_expression: $ => infix_binary_op($, '*',    PREC.MULTIPLICATIVE),
+        div_expression: $ => infix_binary_op($, '/',    PREC.MULTIPLICATIVE),
+        mod_expression: $ => infix_binary_op($, '%',    PREC.MULTIPLICATIVE),
+        pow_expression: $ => infix_binary_op($, '**',   PREC.MULTIPLICATIVE, {assoc: 'R'}),
+
+        //---
+        // Unary operators
+        //---
+
+        _unary_op: $ => choice(
+            $.negate_expression,
+        ),
+
+        negate_expression: $ => prefix_unary_op($, '-'),
 
         //---
         // Identifiers, literals and comments
@@ -177,5 +192,12 @@ function infix_binary_op($, lx, pr, {assoc='L', lhs, rhs}={}) {
         field('left', lhs || $._expression),
         field('op', lx),
         field('right', rhs || $._expression)
+    ));
+}
+
+function prefix_unary_op($, lx, {operand}={}) {
+    return prec.left(PREC.PREFIX, seq(
+        field('operator', lx),
+        field('operand', operand || $._expression)
     ));
 }

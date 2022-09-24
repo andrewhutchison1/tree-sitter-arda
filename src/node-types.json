@@ -48,7 +48,15 @@
             "named": true
           },
           {
+            "type": "negate_expression",
+            "named": true
+          },
+          {
             "type": "nil_literal",
+            "named": true
+          },
+          {
+            "type": "pow_expression",
             "named": true
           },
           {
@@ -128,7 +136,15 @@
             "named": true
           },
           {
+            "type": "negate_expression",
+            "named": true
+          },
+          {
             "type": "nil_literal",
+            "named": true
+          },
+          {
+            "type": "pow_expression",
             "named": true
           },
           {
@@ -201,7 +217,15 @@
           "named": true
         },
         {
+          "type": "negate_expression",
+          "named": true
+        },
+        {
           "type": "nil_literal",
+          "named": true
+        },
+        {
+          "type": "pow_expression",
           "named": true
         },
         {
@@ -276,7 +300,15 @@
             "named": true
           },
           {
+            "type": "negate_expression",
+            "named": true
+          },
+          {
             "type": "nil_literal",
+            "named": true
+          },
+          {
+            "type": "pow_expression",
             "named": true
           },
           {
@@ -356,7 +388,15 @@
             "named": true
           },
           {
+            "type": "negate_expression",
+            "named": true
+          },
+          {
             "type": "nil_literal",
+            "named": true
+          },
+          {
+            "type": "pow_expression",
             "named": true
           },
           {
@@ -437,7 +477,15 @@
             "named": true
           },
           {
+            "type": "negate_expression",
+            "named": true
+          },
+          {
             "type": "nil_literal",
+            "named": true
+          },
+          {
+            "type": "pow_expression",
             "named": true
           },
           {
@@ -517,7 +565,15 @@
             "named": true
           },
           {
+            "type": "negate_expression",
+            "named": true
+          },
+          {
             "type": "nil_literal",
+            "named": true
+          },
+          {
+            "type": "pow_expression",
             "named": true
           },
           {
@@ -593,7 +649,15 @@
             "named": true
           },
           {
+            "type": "negate_expression",
+            "named": true
+          },
+          {
             "type": "nil_literal",
+            "named": true
+          },
+          {
+            "type": "pow_expression",
             "named": true
           },
           {
@@ -673,7 +737,15 @@
             "named": true
           },
           {
+            "type": "negate_expression",
+            "named": true
+          },
+          {
             "type": "nil_literal",
+            "named": true
+          },
+          {
+            "type": "pow_expression",
             "named": true
           },
           {
@@ -701,9 +773,275 @@
     }
   },
   {
+    "type": "negate_expression",
+    "named": true,
+    "fields": {
+      "operand": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
+          {
+            "type": "add_expression",
+            "named": true
+          },
+          {
+            "type": "bool_literal",
+            "named": true
+          },
+          {
+            "type": "div_expression",
+            "named": true
+          },
+          {
+            "type": "float_literal",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "int_literal",
+            "named": true
+          },
+          {
+            "type": "mod_expression",
+            "named": true
+          },
+          {
+            "type": "mul_expression",
+            "named": true
+          },
+          {
+            "type": "negate_expression",
+            "named": true
+          },
+          {
+            "type": "nil_literal",
+            "named": true
+          },
+          {
+            "type": "pow_expression",
+            "named": true
+          },
+          {
+            "type": "record_literal",
+            "named": true
+          },
+          {
+            "type": "str_literal",
+            "named": true
+          },
+          {
+            "type": "sub_expression",
+            "named": true
+          },
+          {
+            "type": "sym_literal",
+            "named": true
+          },
+          {
+            "type": "tuple_literal",
+            "named": true
+          }
+        ]
+      },
+      "operator": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "-",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "nil_literal",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "pow_expression",
+    "named": true,
+    "fields": {
+      "left": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
+          {
+            "type": "add_expression",
+            "named": true
+          },
+          {
+            "type": "bool_literal",
+            "named": true
+          },
+          {
+            "type": "div_expression",
+            "named": true
+          },
+          {
+            "type": "float_literal",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "int_literal",
+            "named": true
+          },
+          {
+            "type": "mod_expression",
+            "named": true
+          },
+          {
+            "type": "mul_expression",
+            "named": true
+          },
+          {
+            "type": "negate_expression",
+            "named": true
+          },
+          {
+            "type": "nil_literal",
+            "named": true
+          },
+          {
+            "type": "pow_expression",
+            "named": true
+          },
+          {
+            "type": "record_literal",
+            "named": true
+          },
+          {
+            "type": "str_literal",
+            "named": true
+          },
+          {
+            "type": "sub_expression",
+            "named": true
+          },
+          {
+            "type": "sym_literal",
+            "named": true
+          },
+          {
+            "type": "tuple_literal",
+            "named": true
+          }
+        ]
+      },
+      "op": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "**",
+            "named": false
+          }
+        ]
+      },
+      "right": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
+          {
+            "type": "add_expression",
+            "named": true
+          },
+          {
+            "type": "bool_literal",
+            "named": true
+          },
+          {
+            "type": "div_expression",
+            "named": true
+          },
+          {
+            "type": "float_literal",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "int_literal",
+            "named": true
+          },
+          {
+            "type": "mod_expression",
+            "named": true
+          },
+          {
+            "type": "mul_expression",
+            "named": true
+          },
+          {
+            "type": "negate_expression",
+            "named": true
+          },
+          {
+            "type": "nil_literal",
+            "named": true
+          },
+          {
+            "type": "pow_expression",
+            "named": true
+          },
+          {
+            "type": "record_literal",
+            "named": true
+          },
+          {
+            "type": "str_literal",
+            "named": true
+          },
+          {
+            "type": "sub_expression",
+            "named": true
+          },
+          {
+            "type": "sym_literal",
+            "named": true
+          },
+          {
+            "type": "tuple_literal",
+            "named": true
+          }
+        ]
+      }
+    }
   },
   {
     "type": "record_literal",
@@ -761,7 +1099,15 @@
           "named": true
         },
         {
+          "type": "negate_expression",
+          "named": true
+        },
+        {
           "type": "nil_literal",
+          "named": true
+        },
+        {
+          "type": "pow_expression",
           "named": true
         },
         {
@@ -851,7 +1197,15 @@
             "named": true
           },
           {
+            "type": "negate_expression",
+            "named": true
+          },
+          {
             "type": "nil_literal",
+            "named": true
+          },
+          {
+            "type": "pow_expression",
             "named": true
           },
           {
@@ -931,7 +1285,15 @@
             "named": true
           },
           {
+            "type": "negate_expression",
+            "named": true
+          },
+          {
             "type": "nil_literal",
+            "named": true
+          },
+          {
+            "type": "pow_expression",
             "named": true
           },
           {
@@ -999,7 +1361,15 @@
           "named": true
         },
         {
+          "type": "negate_expression",
+          "named": true
+        },
+        {
           "type": "nil_literal",
+          "named": true
+        },
+        {
+          "type": "pow_expression",
           "named": true
         },
         {
@@ -1047,6 +1417,10 @@
   },
   {
     "type": "*",
+    "named": false
+  },
+  {
+    "type": "**",
     "named": false
   },
   {
