@@ -27,3 +27,25 @@ a%b;
     (mul_expression (identifier) (identifier))
     (div_expression (identifier) (identifier))
     (mod_expression (identifier) (identifier)))
+
+===
+expr.binop.prec
+===
+a + b * c + d;
+a - b / c + d % e;
+---
+(chunk
+    (add_expression
+        (add_expression
+            (identifier)
+            (mul_expression (identifier) (identifier)))
+        (identifier))
+    (add_expression
+        (sub_expression
+            (identifier)
+            (div_expression
+                (identifier)
+                (identifier)))
+        (mod_expression
+            (identifier)
+            (identifier))))

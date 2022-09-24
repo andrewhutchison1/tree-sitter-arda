@@ -1010,10 +1010,6 @@
           "name": "_expression"
         }
       ]
-    },
-    "_record_key": {
-      "type": "CHOICE",
-      "members": []
     }
   },
   "extras": [
