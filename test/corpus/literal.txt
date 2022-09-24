@@ -9,6 +9,18 @@ lit.nil
     (nil_literal))
 
 ===
+lit.sym
+===
+:symbol;
+:_;
+:_s;
+---
+(chunk
+    (sym_literal)
+    (sym_literal)
+    (sym_literal))
+
+===
 lit.bool
 ===
 true; false;

@@ -30,6 +30,7 @@ module.exports = grammar({
 
         _atomic_literal: $ => choice(
             $.nil_literal,
+            $.sym_literal,
             $.bool_literal,
             $.int_literal,
             $.float_literal,
@@ -37,6 +38,7 @@ module.exports = grammar({
         ),
 
         nil_literal:    $ => seq('(', ')'),
+        sym_literal:    $ => token(seq(':', /[a-zA-Z_][a-zA-Z0-9]*/)),
         bool_literal:   $ => choice('true', 'false'),
 
         int_literal: $ => token(choice(
