@@ -36,6 +36,10 @@
             "named": true
           },
           {
+            "type": "if_expression",
+            "named": true
+          },
+          {
             "type": "int_literal",
             "named": true
           },
@@ -124,6 +128,10 @@
             "named": true
           },
           {
+            "type": "if_expression",
+            "named": true
+          },
+          {
             "type": "int_literal",
             "named": true
           },
@@ -202,6 +210,10 @@
         },
         {
           "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "if_expression",
           "named": true
         },
         {
@@ -285,6 +297,10 @@
           },
           {
             "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "if_expression",
             "named": true
           },
           {
@@ -376,6 +392,10 @@
             "named": true
           },
           {
+            "type": "if_expression",
+            "named": true
+          },
+          {
             "type": "int_literal",
             "named": true
           },
@@ -429,6 +449,266 @@
     "fields": {}
   },
   {
+    "type": "if_expression",
+    "named": true,
+    "fields": {
+      "branch_else": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
+          {
+            "type": ";",
+            "named": false
+          },
+          {
+            "type": "add_expression",
+            "named": true
+          },
+          {
+            "type": "bool_literal",
+            "named": true
+          },
+          {
+            "type": "div_expression",
+            "named": true
+          },
+          {
+            "type": "float_literal",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "if_expression",
+            "named": true
+          },
+          {
+            "type": "int_literal",
+            "named": true
+          },
+          {
+            "type": "mod_expression",
+            "named": true
+          },
+          {
+            "type": "mul_expression",
+            "named": true
+          },
+          {
+            "type": "negate_expression",
+            "named": true
+          },
+          {
+            "type": "nil_literal",
+            "named": true
+          },
+          {
+            "type": "pow_expression",
+            "named": true
+          },
+          {
+            "type": "record_literal",
+            "named": true
+          },
+          {
+            "type": "str_literal",
+            "named": true
+          },
+          {
+            "type": "sub_expression",
+            "named": true
+          },
+          {
+            "type": "sym_literal",
+            "named": true
+          },
+          {
+            "type": "tuple_literal",
+            "named": true
+          }
+        ]
+      },
+      "branch_then": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
+          {
+            "type": ";",
+            "named": false
+          },
+          {
+            "type": "add_expression",
+            "named": true
+          },
+          {
+            "type": "bool_literal",
+            "named": true
+          },
+          {
+            "type": "div_expression",
+            "named": true
+          },
+          {
+            "type": "float_literal",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "if_expression",
+            "named": true
+          },
+          {
+            "type": "int_literal",
+            "named": true
+          },
+          {
+            "type": "mod_expression",
+            "named": true
+          },
+          {
+            "type": "mul_expression",
+            "named": true
+          },
+          {
+            "type": "negate_expression",
+            "named": true
+          },
+          {
+            "type": "nil_literal",
+            "named": true
+          },
+          {
+            "type": "pow_expression",
+            "named": true
+          },
+          {
+            "type": "record_literal",
+            "named": true
+          },
+          {
+            "type": "str_literal",
+            "named": true
+          },
+          {
+            "type": "sub_expression",
+            "named": true
+          },
+          {
+            "type": "sym_literal",
+            "named": true
+          },
+          {
+            "type": "tuple_literal",
+            "named": true
+          }
+        ]
+      },
+      "condition": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
+          {
+            "type": "add_expression",
+            "named": true
+          },
+          {
+            "type": "bool_literal",
+            "named": true
+          },
+          {
+            "type": "div_expression",
+            "named": true
+          },
+          {
+            "type": "float_literal",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "if_expression",
+            "named": true
+          },
+          {
+            "type": "int_literal",
+            "named": true
+          },
+          {
+            "type": "mod_expression",
+            "named": true
+          },
+          {
+            "type": "mul_expression",
+            "named": true
+          },
+          {
+            "type": "negate_expression",
+            "named": true
+          },
+          {
+            "type": "nil_literal",
+            "named": true
+          },
+          {
+            "type": "pow_expression",
+            "named": true
+          },
+          {
+            "type": "record_literal",
+            "named": true
+          },
+          {
+            "type": "str_literal",
+            "named": true
+          },
+          {
+            "type": "sub_expression",
+            "named": true
+          },
+          {
+            "type": "sym_literal",
+            "named": true
+          },
+          {
+            "type": "tuple_literal",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "mod_expression",
     "named": true,
     "fields": {
@@ -462,6 +742,10 @@
           },
           {
             "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "if_expression",
             "named": true
           },
           {
@@ -553,6 +837,10 @@
             "named": true
           },
           {
+            "type": "if_expression",
+            "named": true
+          },
+          {
             "type": "int_literal",
             "named": true
           },
@@ -634,6 +922,10 @@
           },
           {
             "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "if_expression",
             "named": true
           },
           {
@@ -725,6 +1017,10 @@
             "named": true
           },
           {
+            "type": "if_expression",
+            "named": true
+          },
+          {
             "type": "int_literal",
             "named": true
           },
@@ -806,6 +1102,10 @@
           },
           {
             "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "if_expression",
             "named": true
           },
           {
@@ -908,6 +1208,10 @@
             "named": true
           },
           {
+            "type": "if_expression",
+            "named": true
+          },
+          {
             "type": "int_literal",
             "named": true
           },
@@ -993,6 +1297,10 @@
           },
           {
             "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "if_expression",
             "named": true
           },
           {
@@ -1084,6 +1392,10 @@
         },
         {
           "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "if_expression",
           "named": true
         },
         {
@@ -1185,6 +1497,10 @@
             "named": true
           },
           {
+            "type": "if_expression",
+            "named": true
+          },
+          {
             "type": "int_literal",
             "named": true
           },
@@ -1273,6 +1589,10 @@
             "named": true
           },
           {
+            "type": "if_expression",
+            "named": true
+          },
+          {
             "type": "int_literal",
             "named": true
           },
@@ -1346,6 +1666,10 @@
         },
         {
           "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "if_expression",
           "named": true
         },
         {
@@ -1452,6 +1776,14 @@
     "named": true
   },
   {
+    "type": "else",
+    "named": false
+  },
+  {
+    "type": "end",
+    "named": false
+  },
+  {
     "type": "escape_sequence",
     "named": true
   },
@@ -1464,12 +1796,20 @@
     "named": true
   },
   {
+    "type": "if",
+    "named": false
+  },
+  {
     "type": "int_literal",
     "named": true
   },
   {
     "type": "sym_literal",
     "named": true
+  },
+  {
+    "type": "then",
+    "named": false
   },
   {
     "type": "true",

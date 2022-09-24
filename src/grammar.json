@@ -59,6 +59,10 @@
         "members": [
           {
             "type": "SYMBOL",
+            "name": "if_expression"
+          },
+          {
+            "type": "SYMBOL",
             "name": "_binary_op"
           },
           {
@@ -92,6 +96,64 @@
           }
         ]
       }
+    },
+    "if_expression": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "if"
+        },
+        {
+          "type": "FIELD",
+          "name": "condition",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_expression"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "then"
+        },
+        {
+          "type": "FIELD",
+          "name": "branch_then",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_expression_sequence"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "else"
+                },
+                {
+                  "type": "FIELD",
+                  "name": "branch_else",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "_expression_sequence"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "end"
+        }
+      ]
     },
     "_binary_op": {
       "type": "CHOICE",

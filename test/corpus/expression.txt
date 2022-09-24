@@ -68,3 +68,13 @@ a * b % c;
             (negate_expression (identifier))
             (negate_expression (identifier)))
         (negate_expression (negate_expression (identifier)))))
+
+===
+expr.if
+===
+if a then b end;
+---
+(chunk
+    (if_expression
+        condition:      (identifier)
+        branch_then:    (identifier)))

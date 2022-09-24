@@ -18,12 +18,24 @@ module.exports = grammar({
 
         _expression: $ => prec.left(
             choice(
+                $.if_expression,
                 $._binary_op,
                 $._unary_op,
                 seq('(', $._expression, ')'),
                 $.identifier,
                 $._literal
             )
+        ),
+
+        if_expression: $ => seq(
+            'if',
+            field('condition', $._expression),
+            'then',
+            field('branch_then', $._expression_sequence),
+            optional(seq(
+                'else', field('branch_else', $._expression_sequence)
+            )),
+            'end'
         ),
 
         //---
