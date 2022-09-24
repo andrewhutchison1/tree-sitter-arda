@@ -11,3 +11,19 @@ _0_;
     (identifier)
     (identifier)
     (identifier))
+
+===
+expr.binop
+===
+a+b;
+a-b;
+a*b;
+a/b;
+a%b;
+---
+(chunk
+    (add_expression (identifier) (identifier))
+    (sub_expression (identifier) (identifier))
+    (mul_expression (identifier) (identifier))
+    (div_expression (identifier) (identifier))
+    (mod_expression (identifier) (identifier)))

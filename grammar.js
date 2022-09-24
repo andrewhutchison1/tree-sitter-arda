@@ -1,3 +1,8 @@
+const PREC = {
+    MULTIPLICATIVE: 2,
+    ADDITIVE: 1,
+    ASSIGN: 0,
+};
 
 module.exports = grammar({
     name: 'arda',
@@ -12,10 +17,28 @@ module.exports = grammar({
 
         _expression: $ => prec.left(
             choice(
+                $._binary_op,
                 $.identifier,
                 $._literal
             )
         ),
+
+        //---
+        // Binary operators
+        //---
+        _binary_op: $ => choice(
+            $.add_expression,
+            $.sub_expression,
+            $.mul_expression,
+            $.div_expression,
+            $.mod_expression,
+        ),
+
+        add_expression: $ => infix_binary_op($, '+', PREC.ADDITIVE),
+        sub_expression: $ => infix_binary_op($, '-', PREC.ADDITIVE),
+        mul_expression: $ => infix_binary_op($, '*', PREC.MULTIPLICATIVE),
+        div_expression: $ => infix_binary_op($, '/', PREC.MULTIPLICATIVE),
+        mod_expression: $ => infix_binary_op($, '%', PREC.MULTIPLICATIVE),
 
         //---
         // Identifiers, literals and comments
@@ -41,7 +64,7 @@ module.exports = grammar({
         _compound_literal: $ => choice(
             $.tuple_literal,
             $.record_literal,
-        ),    
+        ),
 
         nil_literal:    $ => seq('(', ')'),
         sym_literal:    $ => token(seq(':', /[a-zA-Z_][a-zA-Z0-9]*/)),
@@ -144,4 +167,14 @@ function intercalated(rule, sep) {
             seq(sep, rule)
         ))
     );
+}
+
+function infix_binary_op($, lx, pr, {assoc='L', lhs, rhs}={}) {
+    const prec_fun = (assoc == 'R') ? prec.right : prec.left;
+
+    return prec_fun(pr, seq(
+        field('left', lhs || $._expression),
+        field('op', lx),
+        field('right', rhs || $._expression)
+    ));
 }
