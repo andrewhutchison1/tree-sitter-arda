@@ -49,7 +49,8 @@ module.exports = grammar({
 
         _literal: $ => choice(
             $._atomic_literal,
-            $._compound_literal
+            $._compound_literal,
+            seq('(', $._expression, ')')
         ),
 
         _atomic_literal: $ => choice(

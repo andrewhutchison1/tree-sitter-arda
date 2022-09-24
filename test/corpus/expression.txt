@@ -32,7 +32,9 @@ a%b;
 expr.binop.prec
 ===
 a + b * c + d;
+(a + b) * (c + d);
 a - b / c + d % e;
+a * b % c
 ---
 (chunk
     (add_expression
@@ -40,6 +42,9 @@ a - b / c + d % e;
             (identifier)
             (mul_expression (identifier) (identifier)))
         (identifier))
+    (mul_expression
+        (add_expression (identifier) (identifier))
+        (add_expression (identifier) (identifier)))
     (add_expression
         (sub_expression
             (identifier)
@@ -48,4 +53,7 @@ a - b / c + d % e;
                 (identifier)))
         (mod_expression
             (identifier)
-            (identifier))))
+            (identifier)))
+    (mod_expression
+        (mul_expression (identifier) (identifier))
+        (identifier)))
