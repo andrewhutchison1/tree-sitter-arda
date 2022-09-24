@@ -1,7 +1,9 @@
 const PREC = {
-    PREFIX: 3,
-    MULTIPLICATIVE: 2,
-    ADDITIVE: 1,
+    PREFIX: 4,
+    MULTIPLICATIVE: 3,
+    ADDITIVE: 2,
+    LITERAL: 2,
+    RELATIONAL: 1,
     ASSIGN: 0,
 };
 
@@ -10,6 +12,10 @@ module.exports = grammar({
 
     word:   $ => $.identifier,
     extras: $ => [/\s/, $.comment],
+
+    conflicts: $ => [
+        [$._pattern, $._expression]
+    ],
 
     rules: {
         chunk: $ => optional($._expression_sequence),
@@ -49,6 +55,7 @@ module.exports = grammar({
             $.div_expression,
             $.mod_expression,
             $.pow_expression,
+            $.match_expression
         ),
 
         add_expression: $ => infix_binary_op($, '+',    PREC.ADDITIVE),
@@ -57,6 +64,8 @@ module.exports = grammar({
         div_expression: $ => infix_binary_op($, '/',    PREC.MULTIPLICATIVE),
         mod_expression: $ => infix_binary_op($, '%',    PREC.MULTIPLICATIVE),
         pow_expression: $ => infix_binary_op($, '**',   PREC.MULTIPLICATIVE, {assoc: 'R'}),
+
+        match_expression: $ => infix_binary_op($, '?=', PREC.RELATIONAL, {lhs: $._pattern}),
 
         //---
         // Unary operators
@@ -69,15 +78,28 @@ module.exports = grammar({
         negate_expression: $ => prefix_unary_op($, '-'),
 
         //---
-        // Identifiers, literals and comments
+        // Identifiers, literals, patterns and comments
         //---
 
         identifier: $ => token(/[a-zA-Z_][a-zA-Z0-9_]*/),
         comment:    $ => token(/#.*/),
 
-        _literal: $ => choice(
+        _literal: $ => prec(PREC.LITERAL, choice(
             $._atomic_literal,
             $._compound_literal
+        )),
+
+        _pattern: $ => choice(
+            $.identifier,
+            $.pin_pattern,
+            $._atomic_literal,
+            $.tuple_pattern,
+        ),
+
+        gather_pattern: $ => seq('...', optional($._pattern)),
+
+        pin_pattern: $ => seq(
+            '^', alias($.identifier, 'identifier')
         ),
 
         _atomic_literal: $ => choice(
@@ -134,18 +156,15 @@ module.exports = grammar({
         },
 
         str_literal: $ => {
-            const make_str_literal = (quote, char) => seq(
+            const quoted_string = (quote, char) => seq(
                 quote,
                 repeat(choice($.escape_sequence, char)),
                 token.immediate(quote)
             );
 
-            const squoted = make_str_literal('\'', /[^'\\\n]+/);
-            const dquoted = make_str_literal('"', /[^"\\\n]+/);
-
             return repeat1(choice(
-                squoted,
-                dquoted
+                quoted_string('\'', /[^'\\\n]+/),
+                quoted_string('"', /[^"\\\n]+/)
             ));
         },
 
@@ -164,6 +183,13 @@ module.exports = grammar({
         tuple_literal: $ => prec.left(seq(
             '(', $._expression, ',', separated($._expression, ','), ')'
         )),
+
+        tuple_pattern: $ => prec.left(seq('(', $._tuple_pattern_elements, ')')),
+
+        _tuple_pattern_elements: $ => choice(
+            $.gather_pattern,
+            seq($._pattern, ',', separated($._pattern, ','), optional($.gather_pattern)),
+        ),
 
         record_literal: $ => seq('{', separated($.record_pair, ','), '}'),
 

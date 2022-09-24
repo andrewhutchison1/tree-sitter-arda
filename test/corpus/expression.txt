@@ -70,6 +70,18 @@ a * b % c;
         (negate_expression (negate_expression (identifier)))))
 
 ===
+expr.match
+===
+(a, b);
+(a, b) ?= (0, 1)
+---
+(chunk
+    (tuple_literal (identifier) (identifier))
+    (match_expression
+        (tuple_pattern (identifier) (identifier))
+        (tuple_literal (int_literal) (int_literal))))
+
+===
 expr.if
 ===
 if a then b end;

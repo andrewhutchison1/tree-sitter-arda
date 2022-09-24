@@ -1,0 +1,55 @@
+===
+pat.ident
+===
+a ?= 4
+---
+(chunk
+    (match_expression
+        (identifier)
+        (int_literal)))
+
+===
+pat.pin
+===
+^a ?= 4
+---
+(chunk
+    (match_expression
+        (pin_pattern)
+        (int_literal)))
+
+===
+pat.tuple
+===
+(a, b) ?= test;
+(...a) ?= test;
+(...) ?= test;
+(a, ...b) ?= test;
+(a, (b, c)) ?= test;
+(a, (^b, c)) ?= test;
+---
+(chunk
+    (match_expression
+        (tuple_pattern (identifier) (identifier))
+        (identifier))
+    (match_expression
+        (tuple_pattern (gather_pattern (identifier)))
+        (identifier))
+    (match_expression
+        (tuple_pattern (gather_pattern))
+        (identifier))
+    (match_expression
+        (tuple_pattern
+            (identifier)
+            (gather_pattern (identifier)))
+        (identifier))
+    (match_expression
+        (tuple_pattern
+            (identifier)
+            (tuple_pattern (identifier) (identifier)))
+        (identifier))
+    (match_expression
+        (tuple_pattern
+            (identifier)
+            (tuple_pattern (pin_pattern) (identifier)))
+        (identifier)))
