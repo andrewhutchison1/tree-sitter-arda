@@ -22,7 +22,7 @@ a/b;
 a%b;
 a**b;
 a**b**c;
-a orelse b;
+a orelse b; a orelse b orelse c
 ---
 (chunk
     (add_expression (identifier) (identifier))
@@ -33,7 +33,8 @@ a orelse b;
     (mod_expression (identifier) (identifier))
     (pow_expression (identifier) (identifier))
     (pow_expression (identifier) (pow_expression (identifier) (identifier)))
-    (orelse_expression (identifier) (identifier)))
+    (orelse_expression (identifier) (identifier))
+    (orelse_expression (orelse_expression (identifier) (identifier)) (identifier)))
 
 ===
 expr.binop.prec

@@ -51,16 +51,6 @@ module.exports = grammar({
         fun_expression: $ => seq(
             'fun',
             optional(field('name', $.identifier)),
-            field('params', $._parameter_list),
-            field('body', seq(
-                $._body,
-                'end'
-            ))
-        ),
-
-        fun_expression: $ => seq(
-            'fun',
-            optional(field('name', $.identifier)),
             $._parameter_list,
             field('body', $._body),
             'end'
