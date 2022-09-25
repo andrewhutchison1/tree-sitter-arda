@@ -14,7 +14,8 @@ module.exports = grammar({
     extras: $ => [/\s/, $.comment],
 
     conflicts: $ => [
-        [$._pattern, $._expression]
+        [$._pattern, $._expression],
+        [$.record_pattern, $.record_literal]
     ],
 
     rules: {
@@ -22,8 +23,20 @@ module.exports = grammar({
 
         _expression_sequence: $ => separated1($._expression, ';'),
 
+        _body: $ => choice(
+            $.block,
+            $._expression
+        ),
+
+        block: $ => prec.left(seq(
+            $._expression,
+            repeat1(seq(';', $._expression)),
+            optional(';')
+        )),
+
         _expression: $ => prec.left(
             choice(
+                $.fun_expression,
                 $.if_expression,
                 $._binary_op,
                 $._unary_op,
@@ -33,14 +46,51 @@ module.exports = grammar({
             )
         ),
 
+        fun_expression: $ => seq(
+            'fun',
+            optional(field('name', $.identifier)),
+            field('params', $._parameter_list),
+            field('body', seq(
+                $._body,
+                'end'
+            ))
+        ),
+
+        fun_expression: $ => seq(
+            'fun',
+            optional(field('name', $.identifier)),
+            $._parameter_list,
+            field('body', $._body),
+            'end'
+        ),
+
+        _parameter_list: $ => seq(
+            '(',
+            optional($.positional_params),
+            optional(seq(';', $.keyword_params)),
+            ')'
+        ),
+
+        positional_params: $ => choice(
+            $._tuple_pattern_elements,
+            $._pattern
+        ),
+
+        keyword_params: $ => choice(
+            $.identifier
+            // TODO record pattern elements
+        ),
+
+        //---
+        // If expression
+        //---
+
         if_expression: $ => seq(
             'if',
-            field('condition', $._expression),
+            field('cond', $._expression),
             'then',
-            field('branch_then', $._expression_sequence),
-            optional(seq(
-                'else', field('branch_else', $._expression_sequence)
-            )),
+            field('then', $._body),
+            optional(seq('else', field('else', $._body))),
             'end'
         ),
 
@@ -92,15 +142,15 @@ module.exports = grammar({
         _pattern: $ => choice(
             $.identifier,
             $.pin_pattern,
+            $.opt_pattern,
             $._atomic_literal,
             $.tuple_pattern,
+            $.record_pattern
         ),
 
         gather_pattern: $ => seq('...', optional($._pattern)),
-
-        pin_pattern: $ => seq(
-            '^', alias($.identifier, 'identifier')
-        ),
+        pin_pattern: $ => seq('^', alias($.identifier, 'identifier')),
+        opt_pattern: $ => seq($._pattern, '?'),
 
         _atomic_literal: $ => choice(
             $.nil_literal,
@@ -184,6 +234,10 @@ module.exports = grammar({
             '(', $._expression, ',', separated($._expression, ','), ')'
         )),
 
+        //---
+        // Tuple patterns
+        //---
+
         tuple_pattern: $ => prec.left(seq('(', $._tuple_pattern_elements, ')')),
 
         _tuple_pattern_elements: $ => choice(
@@ -191,13 +245,23 @@ module.exports = grammar({
             seq($._pattern, ',', separated($._pattern, ','), optional($.gather_pattern)),
         ),
 
-        record_literal: $ => seq('{', separated($.record_pair, ','), '}'),
+        record_literal: $ => seq('{', separated($.pair, ','), '}'),
+        pair: $ => seq($._record_key, '=', $._expression),
 
-        record_pair: $ => seq(
-            choice($.identifier, $.sym_literal, $.str_literal),
-            '=',
-            $._expression
+        _record_key: $ => choice(
+            $.identifier,
+            $.sym_literal,
+            $.str_literal,
         ),
+
+        record_pattern: $ => prec.left(seq(
+            '{',
+            separated(choice($.pair_pattern, $.identifier), ','),
+            optional(seq($.gather_pattern, optional(','))),
+            '}'
+        )),
+
+        pair_pattern: $ => seq($._record_key, '=', $._pattern),
     }
 });
 
@@ -227,15 +291,15 @@ function infix_binary_op($, lx, pr, {assoc='L', lhs, rhs}={}) {
     const prec_fun = (assoc == 'R') ? prec.right : prec.left;
 
     return prec_fun(pr, seq(
-        field('left', lhs || $._expression),
+        field('L', lhs || $._expression),
         field('op', lx),
-        field('right', rhs || $._expression)
+        field('R', rhs || $._expression)
     ));
 }
 
 function prefix_unary_op($, lx, {operand}={}) {
     return prec.left(PREC.PREFIX, seq(
-        field('operator', lx),
-        field('operand', operand || $._expression)
+        field('op', lx),
+        field('expr', operand || $._expression)
     ));
 }

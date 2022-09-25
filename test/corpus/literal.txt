@@ -156,12 +156,12 @@ lit.record
 (chunk
     (record_literal)
     (record_literal
-        (record_pair (identifier) (int_literal)))
+        (pair (identifier) (int_literal)))
     (record_literal
-        (record_pair (sym_literal) (int_literal)))
+        (pair (sym_literal) (int_literal)))
     (record_literal
-        (record_pair (identifier) (int_literal))
-        (record_pair (identifier) (int_literal)))
+        (pair (identifier) (int_literal))
+        (pair (identifier) (int_literal)))
     (record_literal
-        (record_pair (str_literal) (int_literal))
-        (record_pair (str_literal) (str_literal))))
+        (pair (str_literal) (int_literal))
+        (pair (str_literal) (str_literal))))

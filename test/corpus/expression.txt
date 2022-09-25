@@ -86,14 +86,125 @@ expr.if
 ===
 if a then b end;
 if a + b then false else 4 end;
+
+if (a, b) ?= test then
+    true
+else
+    false
+end;
+
+if true then
+    1;
+    2;
+end;
+
+if false then
+    ()
+else
+    1; 2
+end
 ---
 (chunk
     (if_expression
-        condition:      (identifier)
-        branch_then:    (identifier))
+        cond: (identifier)
+        then: (identifier))
+
     (if_expression
-        condition:      (add_expression
-            left:   (identifier)
-            right:  (identifier))
-        branch_then:    (bool_literal)
-        branch_else:    (int_literal)))
+        cond: (add_expression
+            L: (identifier)
+            R: (identifier))
+        then: (bool_literal)
+        else: (int_literal))
+        
+    (if_expression
+        cond: (match_expression
+            L: (tuple_pattern (identifier) (identifier))
+            R: (identifier))
+        then: (bool_literal)
+        else: (bool_literal))
+
+    (if_expression
+        cond: (bool_literal)
+        then: (block (int_literal) (int_literal)))
+        
+    (if_expression
+        cond: (bool_literal)
+        then: (nil_literal)
+        else: (block (int_literal) (int_literal))))
+
+===
+expr.fun
+===
+fun () true end;
+
+fun (a) true end;
+
+fun (a, (^b, c, 0), ...rest)
+    false
+end;
+
+fun f(a) 1 end;
+
+fun f(a)
+    1;
+    2
+end;
+
+fun g(a; b)
+    1; 2
+end;
+
+fun f(a?)
+    true
+end;
+
+fun eq(lhs, rhs, (:s, 0)?)
+    true
+end
+---
+(chunk
+    (fun_expression
+        body: (bool_literal))
+
+    (fun_expression
+        (positional_params (identifier))
+        body: (bool_literal))
+        
+    (fun_expression
+        (positional_params
+            (identifier)
+            (tuple_pattern
+                (pin_pattern)
+                (identifier)
+                (int_literal))
+            (gather_pattern (identifier)))
+        body: (bool_literal))
+        
+    (fun_expression
+        name: (identifier)
+        (positional_params (identifier))
+        body: (int_literal))
+        
+    (fun_expression
+        name: (identifier)
+        (positional_params (identifier))
+        body: (block (int_literal) (int_literal)))
+        
+    (fun_expression
+        name: (identifier)
+        (positional_params (identifier))
+        (keyword_params (identifier))
+        body: (block (int_literal) (int_literal)))
+        
+    (fun_expression
+        name: (identifier)
+        (positional_params (opt_pattern (identifier)))
+        body: (bool_literal))
+
+    (fun_expression
+        name: (identifier)
+        (positional_params
+            (identifier)
+            (identifier)
+            (opt_pattern (tuple_pattern (sym_literal) (int_literal))))
+        body: (bool_literal)))
