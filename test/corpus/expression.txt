@@ -221,3 +221,53 @@ end
         (positional_params (identifier) (identifier))
         (keyword_params (key_pattern (opt_pattern (identifier))))
         body: (identifier)))
+
+===
+expr.fun.case
+===
+fun f
+    case (a, b) do
+        a + b
+    end
+end;
+
+fun g
+    case (0, 0) => 0
+    case (a, 0) => 1
+    case (_, b) => -1
+    else => 42
+end
+---
+(chunk
+    (fun_expression
+        name: (identifier)
+        (case_fun
+            (positional_params (identifier) (identifier))
+            body: (do_expression (add_expression L: (identifier) R: (identifier)))))
+            
+    (fun_expression
+        name: (identifier)
+        (case_fun
+            (positional_params (int_literal) (int_literal))
+            body: (int_literal))
+        (case_fun
+            (positional_params (identifier) (int_literal))
+            body: (int_literal))
+        (case_fun
+            (positional_params (identifier) (identifier))
+            body: (negate_expression E: (int_literal)))
+        (case_else body: (int_literal))))
+
+===
+expr.do
+===
+do 1 end;
+do
+    1;
+    2;
+    3
+end
+---
+(chunk
+    (do_expression (int_literal))
+    (do_expression (int_literal) (int_literal) (int_literal)))

@@ -39,6 +39,7 @@ module.exports = grammar({
         _expression: $ => prec.left(
             choice(
                 $.fun_expression,
+                $.do_expression,
                 $.if_expression,
                 $._binary_op,
                 $._unary_op,
@@ -51,10 +52,22 @@ module.exports = grammar({
         fun_expression: $ => seq(
             'fun',
             optional(field('name', $.identifier)),
-            $._parameter_list,
-            field('body', $._body),
+            choice(
+                seq($._parameter_list, field('body', $._body)),
+                seq(repeat1($.case_fun), optional($.case_else))
+            ),
             'end'
         ),
+
+        case_fun: $ => seq(
+            'case', $._parameter_list, field('body', choice($.do_expression, $._arrow_body))
+        ),
+
+        case_else: $ => seq(
+            'else', field('body', choice($.do_expression, $._arrow_body))
+        ),
+
+        _arrow_body: $ => seq('=>', $._expression),
 
         _parameter_list: $ => seq(
             '(',
@@ -71,6 +84,12 @@ module.exports = grammar({
         keyword_params: $ => choice(
             $._record_pattern_elements
         ),
+
+        //---
+        // Do expression
+        //---
+
+        do_expression: $ => seq('do', $._expression_sequence, 'end'),
 
         //---
         // If expression
@@ -305,6 +324,6 @@ function infix_binary_op($, lx, pr, {assoc='L', lhs, rhs}={}) {
 function prefix_unary_op($, lx, {operand}={}) {
     return prec.left(PREC.PREFIX, seq(
         field('op', lx),
-        field('expr', operand || $._expression)
+        field('E', operand || $._expression)
     ));
 }
