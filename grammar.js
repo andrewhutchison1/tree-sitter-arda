@@ -1,9 +1,11 @@
 const PREC = {
-    PREFIX: 4,
-    MULTIPLICATIVE: 3,
-    ADDITIVE: 2,
-    LITERAL: 2,
-    RELATIONAL: 1,
+    PREFIX: 6,
+    MULTIPLICATIVE: 5,
+    ADDITIVE: 4,
+    LITERAL: 4,
+    RELATIONAL: 3,
+    CONJUNCTION: 2,
+    DISJUNCTION: 1,
     ASSIGN: 0,
 };
 
@@ -77,8 +79,7 @@ module.exports = grammar({
         ),
 
         keyword_params: $ => choice(
-            $.identifier
-            // TODO record pattern elements
+            $._record_pattern_elements
         ),
 
         //---
@@ -105,7 +106,8 @@ module.exports = grammar({
             $.div_expression,
             $.mod_expression,
             $.pow_expression,
-            $.match_expression
+            $.match_expression,
+            $.orelse_expression,
         ),
 
         add_expression: $ => infix_binary_op($, '+',    PREC.ADDITIVE),
@@ -116,6 +118,7 @@ module.exports = grammar({
         pow_expression: $ => infix_binary_op($, '**',   PREC.MULTIPLICATIVE, {assoc: 'R'}),
 
         match_expression: $ => infix_binary_op($, '?=', PREC.RELATIONAL, {lhs: $._pattern}),
+        orelse_expression: $ => infix_binary_op($, 'orelse', PREC.DISJUNCTION),
 
         //---
         // Unary operators
@@ -230,13 +233,13 @@ module.exports = grammar({
             )
         ),
 
+        //---
+        // Tuple literals and patterns
+        //---
+
         tuple_literal: $ => prec.left(seq(
             '(', $._expression, ',', separated($._expression, ','), ')'
         )),
-
-        //---
-        // Tuple patterns
-        //---
 
         tuple_pattern: $ => prec.left(seq('(', $._tuple_pattern_elements, ')')),
 
@@ -244,6 +247,10 @@ module.exports = grammar({
             $.gather_pattern,
             seq($._pattern, ',', separated($._pattern, ','), optional($.gather_pattern)),
         ),
+
+        //---
+        // Record literals and patterns
+        //---
 
         record_literal: $ => seq('{', separated($.pair, ','), '}'),
         pair: $ => seq($._record_key, '=', $._expression),
@@ -254,14 +261,22 @@ module.exports = grammar({
             $.str_literal,
         ),
 
-        record_pattern: $ => prec.left(seq(
-            '{',
-            separated(choice($.pair_pattern, $.identifier), ','),
-            optional(seq($.gather_pattern, optional(','))),
-            '}'
-        )),
+        record_pattern: $ => prec.left(seq('{', optional($._record_pattern_elements), '}')),
+
+        _record_pattern_elements: $ => choice(
+            $.gather_pattern,
+            seq(
+                separated1(choice($.pair_pattern, $.key_pattern), ','),
+                optional($.gather_pattern)
+            )
+        ),
 
         pair_pattern: $ => seq($._record_key, '=', $._pattern),
+
+        key_pattern: $ => choice(
+            $.identifier,
+            $.opt_pattern
+        ),
     }
 });
 

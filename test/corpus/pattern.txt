@@ -68,7 +68,9 @@ end
 (chunk
     (if_expression
         cond: (match_expression
-            L: (record_pattern (identifier) (identifier))
+            L: (record_pattern
+                (key_pattern (identifier))
+                (key_pattern (identifier)))
             R: (identifier))
         then: (bool_literal))
     (if_expression

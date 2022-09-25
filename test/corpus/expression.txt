@@ -22,6 +22,7 @@ a/b;
 a%b;
 a**b;
 a**b**c;
+a orelse b;
 ---
 (chunk
     (add_expression (identifier) (identifier))
@@ -31,7 +32,8 @@ a**b**c;
     (div_expression (identifier) (identifier))
     (mod_expression (identifier) (identifier))
     (pow_expression (identifier) (identifier))
-    (pow_expression (identifier) (pow_expression (identifier) (identifier))))
+    (pow_expression (identifier) (pow_expression (identifier) (identifier)))
+    (orelse_expression (identifier) (identifier)))
 
 ===
 expr.binop.prec
@@ -160,6 +162,10 @@ end;
 
 fun eq(lhs, rhs, (:s, 0)?)
     true
+end;
+
+fun fcmp(lhs, rhs; eps?)
+    eps
 end
 ---
 (chunk
@@ -193,7 +199,7 @@ end
     (fun_expression
         name: (identifier)
         (positional_params (identifier))
-        (keyword_params (identifier))
+        (keyword_params (key_pattern (identifier)))
         body: (block (int_literal) (int_literal)))
         
     (fun_expression
@@ -207,4 +213,10 @@ end
             (identifier)
             (identifier)
             (opt_pattern (tuple_pattern (sym_literal) (int_literal))))
-        body: (bool_literal)))
+        body: (bool_literal))
+        
+    (fun_expression
+        name: (identifier)
+        (positional_params (identifier) (identifier))
+        (keyword_params (key_pattern (opt_pattern (identifier))))
+        body: (identifier)))
