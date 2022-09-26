@@ -49,6 +49,11 @@ module.exports = grammar({
             )
         ),
 
+        _conditional_expression: $ => choice(
+            $.match_expression,
+            $._expression,
+        ),
+
         fun_expression: $ => seq(
             'fun',
             optional(field('name', $.identifier)),
@@ -97,7 +102,7 @@ module.exports = grammar({
 
         if_expression: $ => seq(
             'if',
-            field('cond', $._expression),
+            field('cond', $._conditional_expression),
             'then',
             field('then', $._body),
             optional(seq('else', field('else', $._body))),
@@ -115,7 +120,6 @@ module.exports = grammar({
             $.div_expression,
             $.mod_expression,
             $.pow_expression,
-            $.match_expression,
             $.orelse_expression,
         ),
 
@@ -125,9 +129,9 @@ module.exports = grammar({
         div_expression: $ => infix_binary_op($, '/',    PREC.MULTIPLICATIVE),
         mod_expression: $ => infix_binary_op($, '%',    PREC.MULTIPLICATIVE),
         pow_expression: $ => infix_binary_op($, '**',   PREC.MULTIPLICATIVE, {assoc: 'R'}),
+        orelse_expression: $ => infix_binary_op($, 'orelse', PREC.DISJUNCTION),
 
         match_expression: $ => infix_binary_op($, '?=', PREC.RELATIONAL, {lhs: $._pattern}),
-        orelse_expression: $ => infix_binary_op($, 'orelse', PREC.DISJUNCTION),
 
         //---
         // Unary operators

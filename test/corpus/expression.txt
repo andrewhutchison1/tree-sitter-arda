@@ -76,13 +76,18 @@ a * b % c;
 expr.match
 ===
 (a, b);
-(a, b) ?= (0, 1)
+
+if (a, b) ?= (0, 1) then
+    false
+end
 ---
 (chunk
     (tuple_literal (identifier) (identifier))
-    (match_expression
-        (tuple_pattern (identifier) (identifier))
-        (tuple_literal (int_literal) (int_literal))))
+    (if_expression
+        cond: (match_expression
+            L: (tuple_pattern (identifier) (identifier))
+            R: (tuple_literal (int_literal) (int_literal)))
+        then: (bool_literal)))
 
 ===
 expr.if

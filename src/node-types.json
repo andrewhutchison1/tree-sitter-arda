@@ -52,10 +52,6 @@
             "named": true
           },
           {
-            "type": "match_expression",
-            "named": true
-          },
-          {
             "type": "mod_expression",
             "named": true
           },
@@ -147,10 +143,6 @@
           },
           {
             "type": "int_literal",
-            "named": true
-          },
-          {
-            "type": "match_expression",
             "named": true
           },
           {
@@ -253,10 +245,6 @@
         },
         {
           "type": "int_literal",
-          "named": true
-        },
-        {
-          "type": "match_expression",
           "named": true
         },
         {
@@ -368,10 +356,6 @@
             "named": true
           },
           {
-            "type": "match_expression",
-            "named": true
-          },
-          {
             "type": "mod_expression",
             "named": true
           },
@@ -473,10 +457,6 @@
           },
           {
             "type": "int_literal",
-            "named": true
-          },
-          {
-            "type": "match_expression",
             "named": true
           },
           {
@@ -586,10 +566,6 @@
           "named": true
         },
         {
-          "type": "match_expression",
-          "named": true
-        },
-        {
           "type": "mod_expression",
           "named": true
         },
@@ -689,10 +665,6 @@
             "named": true
           },
           {
-            "type": "match_expression",
-            "named": true
-          },
-          {
             "type": "mod_expression",
             "named": true
           },
@@ -784,10 +756,6 @@
           },
           {
             "type": "int_literal",
-            "named": true
-          },
-          {
-            "type": "match_expression",
             "named": true
           },
           {
@@ -890,10 +858,6 @@
         },
         {
           "type": "int_literal",
-          "named": true
-        },
-        {
-          "type": "match_expression",
           "named": true
         },
         {
@@ -1002,10 +966,6 @@
           },
           {
             "type": "int_literal",
-            "named": true
-          },
-          {
-            "type": "match_expression",
             "named": true
           },
           {
@@ -1298,10 +1258,6 @@
             "named": true
           },
           {
-            "type": "match_expression",
-            "named": true
-          },
-          {
             "type": "mod_expression",
             "named": true
           },
@@ -1397,10 +1353,6 @@
           },
           {
             "type": "int_literal",
-            "named": true
-          },
-          {
-            "type": "match_expression",
             "named": true
           },
           {
@@ -1596,10 +1548,6 @@
             "named": true
           },
           {
-            "type": "match_expression",
-            "named": true
-          },
-          {
             "type": "mod_expression",
             "named": true
           },
@@ -1710,10 +1658,6 @@
             "named": true
           },
           {
-            "type": "match_expression",
-            "named": true
-          },
-          {
             "type": "mod_expression",
             "named": true
           },
@@ -1805,10 +1749,6 @@
           },
           {
             "type": "int_literal",
-            "named": true
-          },
-          {
-            "type": "match_expression",
             "named": true
           },
           {
@@ -1922,10 +1862,6 @@
             "named": true
           },
           {
-            "type": "match_expression",
-            "named": true
-          },
-          {
             "type": "mod_expression",
             "named": true
           },
@@ -2017,10 +1953,6 @@
           },
           {
             "type": "int_literal",
-            "named": true
-          },
-          {
-            "type": "match_expression",
             "named": true
           },
           {
@@ -2131,10 +2063,6 @@
           },
           {
             "type": "int_literal",
-            "named": true
-          },
-          {
-            "type": "match_expression",
             "named": true
           },
           {
@@ -2308,10 +2236,6 @@
             "named": true
           },
           {
-            "type": "match_expression",
-            "named": true
-          },
-          {
             "type": "mod_expression",
             "named": true
           },
@@ -2403,10 +2327,6 @@
           },
           {
             "type": "int_literal",
-            "named": true
-          },
-          {
-            "type": "match_expression",
             "named": true
           },
           {
@@ -2509,10 +2429,6 @@
         },
         {
           "type": "int_literal",
-          "named": true
-        },
-        {
-          "type": "match_expression",
           "named": true
         },
         {
@@ -2734,10 +2650,6 @@
             "named": true
           },
           {
-            "type": "match_expression",
-            "named": true
-          },
-          {
             "type": "mod_expression",
             "named": true
           },
@@ -2829,10 +2741,6 @@
           },
           {
             "type": "int_literal",
-            "named": true
-          },
-          {
-            "type": "match_expression",
             "named": true
           },
           {
@@ -2999,10 +2907,6 @@
             "named": true
           },
           {
-            "type": "match_expression",
-            "named": true
-          },
-          {
             "type": "mod_expression",
             "named": true
           },
@@ -3094,10 +2998,6 @@
           },
           {
             "type": "int_literal",
-            "named": true
-          },
-          {
-            "type": "match_expression",
             "named": true
           },
           {
@@ -3200,10 +3100,6 @@
         },
         {
           "type": "int_literal",
-          "named": true
-        },
-        {
-          "type": "match_expression",
           "named": true
         },
         {

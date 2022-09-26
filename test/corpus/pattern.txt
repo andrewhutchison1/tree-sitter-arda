@@ -1,59 +1,82 @@
 ===
 pat.ident
 ===
-a ?= 4
+if a ?= 4 then true end;
+
+fun (a, b, c)
+    false
+end
 ---
 (chunk
-    (match_expression
-        (identifier)
-        (int_literal)))
+    (if_expression
+        cond: (match_expression L: (identifier) R: (int_literal))
+        then: (bool_literal))
+        
+    (fun_expression
+        (positional_params (identifier) (identifier) (identifier))
+        body: (bool_literal)))
 
 ===
 pat.pin
 ===
-^a ?= 4
+if ^a ?= 4 then true end;
+
+fun (^a, ^b, ^c) true end
 ---
 (chunk
-    (match_expression
-        (pin_pattern)
-        (int_literal)))
+    (if_expression
+        cond: (match_expression L: (pin_pattern) R: (int_literal))
+        then: (bool_literal))
+    (fun_expression
+        (positional_params (pin_pattern) (pin_pattern) (pin_pattern))
+        body: (bool_literal)))
 
 ===
 pat.tuple
 ===
-(a, b) ?= test;
-(...a) ?= test;
-(...) ?= test;
-(a, ...b) ?= test;
-(a, (b, c)) ?= test;
-(a, (^b, c)) ?= test;
+if (a, b)       ?= test then true end;
+if (...a)       ?= test then true end;
+if (...)        ?= test then true end;
+if (a, ...b)    ?= test then true end;
+if (a, (b, c))  ?= test then true end;
+if (a, (^b, c)) ?= test then true end
 ---
 (chunk
-    (match_expression
-        (tuple_pattern (identifier) (identifier))
-        (identifier))
-    (match_expression
-        (tuple_pattern (gather_pattern (identifier)))
-        (identifier))
-    (match_expression
-        (tuple_pattern (gather_pattern))
-        (identifier))
-    (match_expression
-        (tuple_pattern
-            (identifier)
-            (gather_pattern (identifier)))
-        (identifier))
-    (match_expression
-        (tuple_pattern
-            (identifier)
-            (tuple_pattern (identifier) (identifier)))
-        (identifier))
-    (match_expression
-        (tuple_pattern
-            (identifier)
-            (tuple_pattern (pin_pattern) (identifier)))
-        (identifier)))
+    (if_expression
+        cond: (match_expression
+            L: (tuple_pattern (identifier) (identifier))
+            R: (identifier))
+        then: (bool_literal))
 
+    (if_expression
+        cond: (match_expression
+            L: (tuple_pattern (gather_pattern (identifier)))
+            R: (identifier))
+        then: (bool_literal))
+
+    (if_expression
+        cond: (match_expression
+            L: (tuple_pattern (gather_pattern))
+            R: (identifier))
+        then: (bool_literal))
+
+    (if_expression
+        cond: (match_expression
+            L: (tuple_pattern (identifier) (gather_pattern (identifier)))
+            R: (identifier))
+        then: (bool_literal))
+        
+    (if_expression
+        cond: (match_expression
+            L: (tuple_pattern (identifier) (tuple_pattern (identifier) (identifier)))
+            R: (identifier))
+        then: (bool_literal))
+        
+    (if_expression
+        cond: (match_expression
+            L: (tuple_pattern (identifier) (tuple_pattern (pin_pattern) (identifier)))
+            R: (identifier))
+        then: (bool_literal)))
 ===
 pat.record
 ===

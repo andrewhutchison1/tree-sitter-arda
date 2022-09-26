@@ -159,6 +159,19 @@
         ]
       }
     },
+    "_conditional_expression": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "match_expression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_expression"
+        }
+      ]
+    },
     "fun_expression": {
       "type": "SEQ",
       "members": [
@@ -400,7 +413,7 @@
           "name": "cond",
           "content": {
             "type": "SYMBOL",
-            "name": "_expression"
+            "name": "_conditional_expression"
           }
         },
         {
@@ -472,10 +485,6 @@
         {
           "type": "SYMBOL",
           "name": "pow_expression"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "match_expression"
         },
         {
           "type": "SYMBOL",
@@ -681,39 +690,6 @@
         ]
       }
     },
-    "match_expression": {
-      "type": "PREC_LEFT",
-      "value": 3,
-      "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "FIELD",
-            "name": "L",
-            "content": {
-              "type": "SYMBOL",
-              "name": "_pattern"
-            }
-          },
-          {
-            "type": "FIELD",
-            "name": "op",
-            "content": {
-              "type": "STRING",
-              "value": "?="
-            }
-          },
-          {
-            "type": "FIELD",
-            "name": "R",
-            "content": {
-              "type": "SYMBOL",
-              "name": "_expression"
-            }
-          }
-        ]
-      }
-    },
     "orelse_expression": {
       "type": "PREC_LEFT",
       "value": 1,
@@ -734,6 +710,39 @@
             "content": {
               "type": "STRING",
               "value": "orelse"
+            }
+          },
+          {
+            "type": "FIELD",
+            "name": "R",
+            "content": {
+              "type": "SYMBOL",
+              "name": "_expression"
+            }
+          }
+        ]
+      }
+    },
+    "match_expression": {
+      "type": "PREC_LEFT",
+      "value": 3,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "FIELD",
+            "name": "L",
+            "content": {
+              "type": "SYMBOL",
+              "name": "_pattern"
+            }
+          },
+          {
+            "type": "FIELD",
+            "name": "op",
+            "content": {
+              "type": "STRING",
+              "value": "?="
             }
           },
           {
