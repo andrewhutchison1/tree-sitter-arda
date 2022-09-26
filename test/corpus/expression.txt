@@ -24,7 +24,8 @@ a**b;
 a**b**c;
 a and b; a and b and c;
 a or b; a or b or c;
-a orelse b; a orelse b orelse c
+a orelse b; a orelse b orelse c;
+a[0]; (a + b)[a+b]
 ---
 (chunk
     (add_expression (identifier) (identifier))
@@ -40,7 +41,11 @@ a orelse b; a orelse b orelse c
     (or_expression (identifier) (identifier))
     (or_expression (or_expression (identifier) (identifier)) (identifier))
     (orelse_expression (identifier) (identifier))
-    (orelse_expression (orelse_expression (identifier) (identifier)) (identifier)))
+    (orelse_expression (orelse_expression (identifier) (identifier)) (identifier))
+    (index_expression (identifier) (int_literal))
+    (index_expression
+        (add_expression (identifier) (identifier))
+        (add_expression (identifier) (identifier))))
 
 ===
 expr.binop.prec

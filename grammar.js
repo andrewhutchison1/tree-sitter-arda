@@ -1,4 +1,5 @@
 const PREC = {
+    CALL: 7,
     PREFIX: 6,
     MULTIPLICATIVE: 5,
     ADDITIVE: 4,
@@ -175,6 +176,7 @@ module.exports = grammar({
             $.and_expression,
             $.or_expression,
             $.orelse_expression,
+            $.index_expression,
         ),
 
         define_expression:  $ => infix_binary_op($, ':=',       PREC.ASSIGNMENT, {lhs: $._pattern}),
@@ -187,6 +189,13 @@ module.exports = grammar({
         and_expression:     $ => infix_binary_op($, 'and',      PREC.CONJUNCTION),
         or_expression:      $ => infix_binary_op($, 'or',       PREC.DISJUNCTION),
         orelse_expression:  $ => infix_binary_op($, 'orelse',   PREC.DISJUNCTION),
+
+        index_expression:   $ => prec.left(PREC.CALL, seq(
+            field('L', $._expression),
+            '[',
+            field('R', $._expression),
+            ']'
+        )),
 
         match_expression: $ => infix_binary_op($, '?=', PREC.RELATIONAL, {lhs: $._pattern}),
 
