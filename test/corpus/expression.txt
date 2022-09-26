@@ -63,7 +63,7 @@ a + b * c + d;
 a - b / c + d % e;
 a * b % c;
 -a - -b + -(-(c));
-a or b and c
+a or b and c;
 ---
 (chunk
     (add_expression
@@ -300,6 +300,11 @@ fun g
     case (a, 0) => 1
     case (_, b) => -1
     else => 42
+end;
+
+fun h
+    case (; a?, b?) => 1
+    case (; k, ...ks) => 0
 end
 ---
 (chunk
@@ -322,7 +327,20 @@ end
         (case_fun
             (positional_params (ignore_pattern) (identifier))
             body: (negate_expression E: (int_literal)))
-        (case_else body: (int_literal))))
+        (case_else body: (int_literal)))
+        
+    (fun_expression
+        name: (identifier)
+        (case_fun
+            (keyword_params
+                (key_pattern (opt_pattern (identifier)))
+                (key_pattern (opt_pattern (identifier))))
+            body: (int_literal))
+        (case_fun
+            (keyword_params
+                (key_pattern (identifier))
+                (gather_pattern (identifier)))
+            body: (int_literal))))
 
 ===
 expr.switch
