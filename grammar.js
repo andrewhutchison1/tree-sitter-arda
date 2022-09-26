@@ -44,6 +44,7 @@ module.exports = grammar({
                 $.receive_expression,
                 $.do_expression,
                 $.if_expression,
+                $.while_expression,
                 $._binary_op,
                 $._unary_op,
                 seq('(', $._expression, ')'),
@@ -159,6 +160,19 @@ module.exports = grammar({
         _conditional_expression: $ => choice(
             $.match_expression,
             $._expression,
+        ),
+
+        //---
+        // While expression
+        //---
+
+        while_expression: $ => seq(
+            'while',
+            $._init_condition,
+            'do',
+            field('body', $._body),
+            optional(seq('else', field('else', $._body))),
+            'end'
         ),
 
         //---

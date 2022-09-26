@@ -401,3 +401,32 @@ end
         (case_after
             E: (int_literal)
             body: (int_literal))))
+
+===
+expr.while
+===
+while true do () end;
+
+while i := 0; i do () end;
+
+while i := a[0]; not a do
+    ()
+else
+    1
+end
+---
+(chunk
+    (while_expression
+        cond: (bool_literal)
+        body: (nil_literal))
+    (while_expression
+        init: (define_expression L: (identifier) R: (int_literal))
+        cond: (identifier)
+        body: (nil_literal))
+    (while_expression
+        init: (define_expression
+            L: (identifier)
+            R: (index_expression L: (identifier) R: (int_literal)))
+        cond: (not_expression E: (identifier))
+        body: (nil_literal)
+        else: (int_literal)))
