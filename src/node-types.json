@@ -1,6 +1,6 @@
 [
   {
-    "type": "add_expression",
+    "type": "add_eq_expression",
     "named": true,
     "fields": {
       "L": {
@@ -14,6 +14,10 @@
           {
             "type": ")",
             "named": false
+          },
+          {
+            "type": "add_eq_expression",
+            "named": true
           },
           {
             "type": "add_expression",
@@ -168,6 +172,342 @@
           {
             "type": ")",
             "named": false
+          },
+          {
+            "type": "add_eq_expression",
+            "named": true
+          },
+          {
+            "type": "add_expression",
+            "named": true
+          },
+          {
+            "type": "and_expression",
+            "named": true
+          },
+          {
+            "type": "bool_literal",
+            "named": true
+          },
+          {
+            "type": "call_expression",
+            "named": true
+          },
+          {
+            "type": "define_expression",
+            "named": true
+          },
+          {
+            "type": "div_expression",
+            "named": true
+          },
+          {
+            "type": "do_expression",
+            "named": true
+          },
+          {
+            "type": "eq_expression",
+            "named": true
+          },
+          {
+            "type": "float_literal",
+            "named": true
+          },
+          {
+            "type": "fun_expression",
+            "named": true
+          },
+          {
+            "type": "ge_expression",
+            "named": true
+          },
+          {
+            "type": "gt_expression",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "if_expression",
+            "named": true
+          },
+          {
+            "type": "index_expression",
+            "named": true
+          },
+          {
+            "type": "int_literal",
+            "named": true
+          },
+          {
+            "type": "le_expression",
+            "named": true
+          },
+          {
+            "type": "lt_expression",
+            "named": true
+          },
+          {
+            "type": "mod_expression",
+            "named": true
+          },
+          {
+            "type": "mul_expression",
+            "named": true
+          },
+          {
+            "type": "ne_expression",
+            "named": true
+          },
+          {
+            "type": "negate_expression",
+            "named": true
+          },
+          {
+            "type": "nil_literal",
+            "named": true
+          },
+          {
+            "type": "not_expression",
+            "named": true
+          },
+          {
+            "type": "or_expression",
+            "named": true
+          },
+          {
+            "type": "orelse_expression",
+            "named": true
+          },
+          {
+            "type": "pow_expression",
+            "named": true
+          },
+          {
+            "type": "receive_expression",
+            "named": true
+          },
+          {
+            "type": "record_literal",
+            "named": true
+          },
+          {
+            "type": "str_literal",
+            "named": true
+          },
+          {
+            "type": "sub_expression",
+            "named": true
+          },
+          {
+            "type": "switch_expression",
+            "named": true
+          },
+          {
+            "type": "sym_literal",
+            "named": true
+          },
+          {
+            "type": "tuple_literal",
+            "named": true
+          },
+          {
+            "type": "while_expression",
+            "named": true
+          }
+        ]
+      },
+      "op": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "+=",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "add_expression",
+    "named": true,
+    "fields": {
+      "L": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
+          {
+            "type": "add_eq_expression",
+            "named": true
+          },
+          {
+            "type": "add_expression",
+            "named": true
+          },
+          {
+            "type": "and_expression",
+            "named": true
+          },
+          {
+            "type": "bool_literal",
+            "named": true
+          },
+          {
+            "type": "call_expression",
+            "named": true
+          },
+          {
+            "type": "define_expression",
+            "named": true
+          },
+          {
+            "type": "div_expression",
+            "named": true
+          },
+          {
+            "type": "do_expression",
+            "named": true
+          },
+          {
+            "type": "eq_expression",
+            "named": true
+          },
+          {
+            "type": "float_literal",
+            "named": true
+          },
+          {
+            "type": "fun_expression",
+            "named": true
+          },
+          {
+            "type": "ge_expression",
+            "named": true
+          },
+          {
+            "type": "gt_expression",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "if_expression",
+            "named": true
+          },
+          {
+            "type": "index_expression",
+            "named": true
+          },
+          {
+            "type": "int_literal",
+            "named": true
+          },
+          {
+            "type": "le_expression",
+            "named": true
+          },
+          {
+            "type": "lt_expression",
+            "named": true
+          },
+          {
+            "type": "mod_expression",
+            "named": true
+          },
+          {
+            "type": "mul_expression",
+            "named": true
+          },
+          {
+            "type": "ne_expression",
+            "named": true
+          },
+          {
+            "type": "negate_expression",
+            "named": true
+          },
+          {
+            "type": "nil_literal",
+            "named": true
+          },
+          {
+            "type": "not_expression",
+            "named": true
+          },
+          {
+            "type": "or_expression",
+            "named": true
+          },
+          {
+            "type": "orelse_expression",
+            "named": true
+          },
+          {
+            "type": "pow_expression",
+            "named": true
+          },
+          {
+            "type": "receive_expression",
+            "named": true
+          },
+          {
+            "type": "record_literal",
+            "named": true
+          },
+          {
+            "type": "str_literal",
+            "named": true
+          },
+          {
+            "type": "sub_expression",
+            "named": true
+          },
+          {
+            "type": "switch_expression",
+            "named": true
+          },
+          {
+            "type": "sym_literal",
+            "named": true
+          },
+          {
+            "type": "tuple_literal",
+            "named": true
+          },
+          {
+            "type": "while_expression",
+            "named": true
+          }
+        ]
+      },
+      "R": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
+          {
+            "type": "add_eq_expression",
+            "named": true
           },
           {
             "type": "add_expression",
@@ -340,6 +680,10 @@
             "named": false
           },
           {
+            "type": "add_eq_expression",
+            "named": true
+          },
+          {
             "type": "add_expression",
             "named": true
           },
@@ -492,6 +836,10 @@
           {
             "type": ")",
             "named": false
+          },
+          {
+            "type": "add_eq_expression",
+            "named": true
           },
           {
             "type": "add_expression",
@@ -656,6 +1004,10 @@
       "required": false,
       "types": [
         {
+          "type": "add_eq_expression",
+          "named": true
+        },
+        {
           "type": "add_expression",
           "named": true
         },
@@ -818,6 +1170,10 @@
           {
             "type": ")",
             "named": false
+          },
+          {
+            "type": "add_eq_expression",
+            "named": true
           },
           {
             "type": "add_expression",
@@ -994,6 +1350,10 @@
             "named": false
           },
           {
+            "type": "add_eq_expression",
+            "named": true
+          },
+          {
             "type": "add_expression",
             "named": true
           },
@@ -1150,6 +1510,10 @@
           {
             "type": "=>",
             "named": false
+          },
+          {
+            "type": "add_eq_expression",
+            "named": true
           },
           {
             "type": "add_expression",
@@ -1316,6 +1680,10 @@
             "named": false
           },
           {
+            "type": "add_eq_expression",
+            "named": true
+          },
+          {
             "type": "add_expression",
             "named": true
           },
@@ -1478,6 +1846,10 @@
           {
             "type": "=>",
             "named": false
+          },
+          {
+            "type": "add_eq_expression",
+            "named": true
           },
           {
             "type": "add_expression",
@@ -1704,6 +2076,10 @@
             "named": false
           },
           {
+            "type": "add_eq_expression",
+            "named": true
+          },
+          {
             "type": "add_expression",
             "named": true
           },
@@ -1868,6 +2244,10 @@
             "named": false
           },
           {
+            "type": "add_eq_expression",
+            "named": true
+          },
+          {
             "type": "add_expression",
             "named": true
           },
@@ -2020,6 +2400,10 @@
           {
             "type": ")",
             "named": false
+          },
+          {
+            "type": "add_eq_expression",
+            "named": true
           },
           {
             "type": "add_expression",
@@ -2187,6 +2571,10 @@
       "multiple": true,
       "required": false,
       "types": [
+        {
+          "type": "add_eq_expression",
+          "named": true
+        },
         {
           "type": "add_expression",
           "named": true
@@ -2393,6 +2781,10 @@
             "named": false
           },
           {
+            "type": "add_eq_expression",
+            "named": true
+          },
+          {
             "type": "add_expression",
             "named": true
           },
@@ -2563,6 +2955,10 @@
             "named": false
           },
           {
+            "type": "add_eq_expression",
+            "named": true
+          },
+          {
             "type": "add_expression",
             "named": true
           },
@@ -2715,6 +3111,10 @@
           {
             "type": ")",
             "named": false
+          },
+          {
+            "type": "add_eq_expression",
+            "named": true
           },
           {
             "type": "add_expression",
@@ -2879,6 +3279,10 @@
       "required": false,
       "types": [
         {
+          "type": "add_eq_expression",
+          "named": true
+        },
+        {
           "type": "add_expression",
           "named": true
         },
@@ -3038,6 +3442,10 @@
             "named": false
           },
           {
+            "type": "add_eq_expression",
+            "named": true
+          },
+          {
             "type": "add_expression",
             "named": true
           },
@@ -3190,6 +3598,10 @@
           {
             "type": ")",
             "named": false
+          },
+          {
+            "type": "add_eq_expression",
+            "named": true
           },
           {
             "type": "add_expression",
@@ -3365,6 +3777,10 @@
           {
             "type": ")",
             "named": false
+          },
+          {
+            "type": "add_eq_expression",
+            "named": true
           },
           {
             "type": "add_expression",
@@ -3614,6 +4030,10 @@
             "named": false
           },
           {
+            "type": "add_eq_expression",
+            "named": true
+          },
+          {
             "type": "add_expression",
             "named": true
           },
@@ -3766,6 +4186,10 @@
           {
             "type": ")",
             "named": false
+          },
+          {
+            "type": "add_eq_expression",
+            "named": true
           },
           {
             "type": "add_expression",
@@ -3938,6 +4362,10 @@
             "named": false
           },
           {
+            "type": "add_eq_expression",
+            "named": true
+          },
+          {
             "type": "add_expression",
             "named": true
           },
@@ -4090,6 +4518,10 @@
           {
             "type": ")",
             "named": false
+          },
+          {
+            "type": "add_eq_expression",
+            "named": true
           },
           {
             "type": "add_expression",
@@ -4262,6 +4694,10 @@
             "named": false
           },
           {
+            "type": "add_eq_expression",
+            "named": true
+          },
+          {
             "type": "add_expression",
             "named": true
           },
@@ -4418,6 +4854,10 @@
           {
             "type": ")",
             "named": false
+          },
+          {
+            "type": "add_eq_expression",
+            "named": true
           },
           {
             "type": "add_expression",
@@ -4588,6 +5028,10 @@
             "named": false
           },
           {
+            "type": "add_eq_expression",
+            "named": true
+          },
+          {
             "type": "add_expression",
             "named": true
           },
@@ -4752,6 +5196,10 @@
             "named": false
           },
           {
+            "type": "add_eq_expression",
+            "named": true
+          },
+          {
             "type": "add_expression",
             "named": true
           },
@@ -4904,6 +5352,10 @@
           {
             "type": ")",
             "named": false
+          },
+          {
+            "type": "add_eq_expression",
+            "named": true
           },
           {
             "type": "add_expression",
@@ -5123,6 +5575,10 @@
             "named": false
           },
           {
+            "type": "add_eq_expression",
+            "named": true
+          },
+          {
             "type": "add_expression",
             "named": true
           },
@@ -5275,6 +5731,10 @@
           {
             "type": ")",
             "named": false
+          },
+          {
+            "type": "add_eq_expression",
+            "named": true
           },
           {
             "type": "add_expression",
@@ -5447,6 +5907,10 @@
             "named": false
           },
           {
+            "type": "add_eq_expression",
+            "named": true
+          },
+          {
             "type": "add_expression",
             "named": true
           },
@@ -5599,6 +6063,10 @@
           {
             "type": ")",
             "named": false
+          },
+          {
+            "type": "add_eq_expression",
+            "named": true
           },
           {
             "type": "add_expression",
@@ -5817,6 +6285,10 @@
             "named": false
           },
           {
+            "type": "add_eq_expression",
+            "named": true
+          },
+          {
             "type": "add_expression",
             "named": true
           },
@@ -5987,6 +6459,10 @@
             "named": false
           },
           {
+            "type": "add_eq_expression",
+            "named": true
+          },
+          {
             "type": "add_expression",
             "named": true
           },
@@ -6139,6 +6615,10 @@
           {
             "type": ")",
             "named": false
+          },
+          {
+            "type": "add_eq_expression",
+            "named": true
           },
           {
             "type": "add_expression",
@@ -6311,6 +6791,10 @@
             "named": false
           },
           {
+            "type": "add_eq_expression",
+            "named": true
+          },
+          {
             "type": "add_expression",
             "named": true
           },
@@ -6463,6 +6947,10 @@
           {
             "type": ")",
             "named": false
+          },
+          {
+            "type": "add_eq_expression",
+            "named": true
           },
           {
             "type": "add_expression",
@@ -6635,6 +7123,10 @@
             "named": false
           },
           {
+            "type": "add_eq_expression",
+            "named": true
+          },
+          {
             "type": "add_expression",
             "named": true
           },
@@ -6787,6 +7279,10 @@
           {
             "type": ")",
             "named": false
+          },
+          {
+            "type": "add_eq_expression",
+            "named": true
           },
           {
             "type": "add_expression",
@@ -6957,6 +7453,10 @@
           {
             "type": ")",
             "named": false
+          },
+          {
+            "type": "add_eq_expression",
+            "named": true
           },
           {
             "type": "add_expression",
@@ -7132,6 +7632,10 @@
           {
             "type": ")",
             "named": false
+          },
+          {
+            "type": "add_eq_expression",
+            "named": true
           },
           {
             "type": "add_expression",
@@ -7355,6 +7859,10 @@
             "named": false
           },
           {
+            "type": "add_eq_expression",
+            "named": true
+          },
+          {
             "type": "add_expression",
             "named": true
           },
@@ -7507,6 +8015,10 @@
           {
             "type": ")",
             "named": false
+          },
+          {
+            "type": "add_eq_expression",
+            "named": true
           },
           {
             "type": "add_expression",
@@ -7679,6 +8191,10 @@
             "named": false
           },
           {
+            "type": "add_eq_expression",
+            "named": true
+          },
+          {
             "type": "add_expression",
             "named": true
           },
@@ -7831,6 +8347,10 @@
           {
             "type": ")",
             "named": false
+          },
+          {
+            "type": "add_eq_expression",
+            "named": true
           },
           {
             "type": "add_expression",
@@ -7994,6 +8514,10 @@
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "add_eq_expression",
+          "named": true
+        },
         {
           "type": "add_expression",
           "named": true
@@ -8201,6 +8725,10 @@
       "multiple": true,
       "required": false,
       "types": [
+        {
+          "type": "add_eq_expression",
+          "named": true
+        },
         {
           "type": "add_expression",
           "named": true
@@ -8416,6 +8944,10 @@
             "named": false
           },
           {
+            "type": "add_eq_expression",
+            "named": true
+          },
+          {
             "type": "add_expression",
             "named": true
           },
@@ -8568,6 +9100,10 @@
           {
             "type": ")",
             "named": false
+          },
+          {
+            "type": "add_eq_expression",
+            "named": true
           },
           {
             "type": "add_expression",
@@ -8812,6 +9348,10 @@
             "named": false
           },
           {
+            "type": "add_eq_expression",
+            "named": true
+          },
+          {
             "type": "add_expression",
             "named": true
           },
@@ -8964,6 +9504,10 @@
           {
             "type": ")",
             "named": false
+          },
+          {
+            "type": "add_eq_expression",
+            "named": true
           },
           {
             "type": "add_expression",
@@ -9134,6 +9678,10 @@
           {
             "type": ")",
             "named": false
+          },
+          {
+            "type": "add_eq_expression",
+            "named": true
           },
           {
             "type": "add_expression",
@@ -9319,6 +9867,10 @@
       "multiple": true,
       "required": false,
       "types": [
+        {
+          "type": "add_eq_expression",
+          "named": true
+        },
         {
           "type": "add_expression",
           "named": true
@@ -9534,6 +10086,10 @@
             "named": false
           },
           {
+            "type": "add_eq_expression",
+            "named": true
+          },
+          {
             "type": "add_expression",
             "named": true
           },
@@ -9692,6 +10248,10 @@
             "named": false
           },
           {
+            "type": "add_eq_expression",
+            "named": true
+          },
+          {
             "type": "add_expression",
             "named": true
           },
@@ -9848,6 +10408,10 @@
           {
             "type": ")",
             "named": false
+          },
+          {
+            "type": "add_eq_expression",
+            "named": true
           },
           {
             "type": "add_expression",
@@ -10044,6 +10608,10 @@
     "named": false
   },
   {
+    "type": "+=",
+    "named": false
+  },
+  {
     "type": ",",
     "named": false
   },
@@ -10157,11 +10725,11 @@
   },
   {
     "type": "identifier",
-    "named": true
+    "named": false
   },
   {
     "type": "identifier",
-    "named": false
+    "named": true
   },
   {
     "type": "if",

@@ -1,0 +1,42 @@
+===
+misc
+===
+fun strtod(str)
+    L := len(str);
+    result := 0;
+
+    while i := 0; i < L do
+        result += chrtod(str[i]) * 10 ** (L - i - 1);
+    end;
+
+    result
+end
+---
+(chunk
+    (fun_expression
+        name: (identifier)
+        (positional_params (identifier))
+        body: (block
+        (define_expression
+            L: (identifier)
+            R: (call_expression E: (identifier) (positional_args (identifier))))
+        (define_expression L: (identifier) R: (int_literal))
+        (while_expression
+            init: (define_expression L: (identifier) R: (int_literal))
+            cond: (lt_expression L: (identifier) R: (identifier))
+            body: (block
+                (add_eq_expression
+                    L: (identifier)
+                    R: (mul_expression
+                        L: (call_expression
+                            E: (identifier)
+                            (positional_args
+                            (index_expression
+                                L: (identifier)
+                                R: (identifier))))
+                        R: (pow_expression
+                            L: (int_literal)
+                            R: (sub_expression
+                                L: (sub_expression L: (identifier) R: (identifier))
+                                R: (int_literal)))))
+            (identifier))))))

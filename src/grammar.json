@@ -764,6 +764,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "add_eq_expression"
+        },
+        {
+          "type": "SYMBOL",
           "name": "sub_expression"
         },
         {
@@ -1064,6 +1068,39 @@
         ]
       }
     },
+    "add_eq_expression": {
+      "type": "PREC_LEFT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "FIELD",
+            "name": "L",
+            "content": {
+              "type": "SYMBOL",
+              "name": "_expression"
+            }
+          },
+          {
+            "type": "FIELD",
+            "name": "op",
+            "content": {
+              "type": "STRING",
+              "value": "+="
+            }
+          },
+          {
+            "type": "FIELD",
+            "name": "R",
+            "content": {
+              "type": "SYMBOL",
+              "name": "_expression"
+            }
+          }
+        ]
+      }
+    },
     "sub_expression": {
       "type": "PREC_LEFT",
       "value": 4,
@@ -1198,7 +1235,7 @@
     },
     "pow_expression": {
       "type": "PREC_RIGHT",
-      "value": 5,
+      "value": 6,
       "content": {
         "type": "SEQ",
         "members": [
@@ -1330,7 +1367,7 @@
     },
     "index_expression": {
       "type": "PREC_LEFT",
-      "value": 7,
+      "value": 8,
       "content": {
         "type": "SEQ",
         "members": [
@@ -1409,7 +1446,7 @@
     },
     "negate_expression": {
       "type": "PREC_LEFT",
-      "value": 6,
+      "value": 7,
       "content": {
         "type": "SEQ",
         "members": [
@@ -1434,7 +1471,7 @@
     },
     "not_expression": {
       "type": "PREC_LEFT",
-      "value": 6,
+      "value": 7,
       "content": {
         "type": "SEQ",
         "members": [
@@ -1459,7 +1496,7 @@
     },
     "call_expression": {
       "type": "PREC_LEFT",
-      "value": 7,
+      "value": 8,
       "content": {
         "type": "SEQ",
         "members": [
