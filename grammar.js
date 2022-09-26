@@ -54,6 +54,10 @@ module.exports = grammar({
             $._expression,
         ),
 
+        //---
+        // Function expressions
+        //---
+
         fun_expression: $ => seq(
             'fun',
             optional(field('name', $.identifier)),
@@ -129,17 +133,21 @@ module.exports = grammar({
             $.div_expression,
             $.mod_expression,
             $.pow_expression,
+            $.and_expression,
+            $.or_expression,
             $.orelse_expression,
         ),
 
-        define_expression: $ => infix_binary_op($, ':=', PREC.ASSIGNMENT, {lhs: $._pattern}),
-        add_expression: $ => infix_binary_op($, '+',    PREC.ADDITIVE),
-        sub_expression: $ => infix_binary_op($, '-',    PREC.ADDITIVE),
-        mul_expression: $ => infix_binary_op($, '*',    PREC.MULTIPLICATIVE),
-        div_expression: $ => infix_binary_op($, '/',    PREC.MULTIPLICATIVE),
-        mod_expression: $ => infix_binary_op($, '%',    PREC.MULTIPLICATIVE),
-        pow_expression: $ => infix_binary_op($, '**',   PREC.MULTIPLICATIVE, {assoc: 'R'}),
-        orelse_expression: $ => infix_binary_op($, 'orelse', PREC.DISJUNCTION),
+        define_expression:  $ => infix_binary_op($, ':=',       PREC.ASSIGNMENT, {lhs: $._pattern}),
+        add_expression:     $ => infix_binary_op($, '+',        PREC.ADDITIVE),
+        sub_expression:     $ => infix_binary_op($, '-',        PREC.ADDITIVE),
+        mul_expression:     $ => infix_binary_op($, '*',        PREC.MULTIPLICATIVE),
+        div_expression:     $ => infix_binary_op($, '/',        PREC.MULTIPLICATIVE),
+        mod_expression:     $ => infix_binary_op($, '%',        PREC.MULTIPLICATIVE),
+        pow_expression:     $ => infix_binary_op($, '**',       PREC.MULTIPLICATIVE, {assoc: 'R'}),
+        and_expression:     $ => infix_binary_op($, 'and',      PREC.CONJUNCTION),
+        or_expression:      $ => infix_binary_op($, 'or',       PREC.DISJUNCTION),
+        orelse_expression:  $ => infix_binary_op($, 'orelse',   PREC.DISJUNCTION),
 
         match_expression: $ => infix_binary_op($, '?=', PREC.RELATIONAL, {lhs: $._pattern}),
 
@@ -149,9 +157,11 @@ module.exports = grammar({
 
         _unary_op: $ => choice(
             $.negate_expression,
+            $.not_expression
         ),
 
         negate_expression: $ => prefix_unary_op($, '-'),
+        not_expression: $ => prefix_unary_op($, 'not'),
 
         //---
         // Identifiers, literals, patterns and comments

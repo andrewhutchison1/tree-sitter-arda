@@ -22,6 +22,8 @@ a/b;
 a%b;
 a**b;
 a**b**c;
+a and b; a and b and c;
+a or b; a or b or c;
 a orelse b; a orelse b orelse c
 ---
 (chunk
@@ -33,6 +35,10 @@ a orelse b; a orelse b orelse c
     (mod_expression (identifier) (identifier))
     (pow_expression (identifier) (identifier))
     (pow_expression (identifier) (pow_expression (identifier) (identifier)))
+    (and_expression (identifier) (identifier))
+    (and_expression (and_expression (identifier) (identifier)) (identifier))
+    (or_expression (identifier) (identifier))
+    (or_expression (or_expression (identifier) (identifier)) (identifier))
     (orelse_expression (identifier) (identifier))
     (orelse_expression (orelse_expression (identifier) (identifier)) (identifier)))
 
@@ -44,6 +50,7 @@ a + b * c + d;
 a - b / c + d % e;
 a * b % c;
 -a - -b + -(-(c));
+a or b and c
 ---
 (chunk
     (add_expression
@@ -70,7 +77,20 @@ a * b % c;
         (sub_expression
             (negate_expression (identifier))
             (negate_expression (identifier)))
-        (negate_expression (negate_expression (identifier)))))
+        (negate_expression (negate_expression (identifier))))
+    (or_expression
+        (identifier)
+        (and_expression (identifier) (identifier))))
+
+===
+expr.unop
+===
+-a;
+not a
+---
+(chunk
+    (negate_expression (identifier))
+    (not_expression (identifier)))
 
 ===
 expr.match
