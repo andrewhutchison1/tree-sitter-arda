@@ -438,3 +438,23 @@ end
         cond: (not_expression E: (identifier))
         body: (nil_literal)
         else: (int_literal)))
+
+===
+expr.call
+===
+f();
+()();
+f(a);
+f(a; b=3);
+f(; b=4)
+---
+(chunk
+    (call_expression (identifier))
+    (call_expression (nil_literal))
+    (call_expression (identifier)
+        (positional_args (identifier)))
+    (call_expression (identifier)
+        (positional_args (identifier))
+        (keyword_args (pair (identifier) (int_literal))))
+    (call_expression (identifier)
+        (keyword_args (pair (identifier) (int_literal)))))

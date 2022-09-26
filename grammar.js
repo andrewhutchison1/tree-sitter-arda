@@ -47,6 +47,7 @@ module.exports = grammar({
                 $.while_expression,
                 $._binary_op,
                 $._unary_op,
+                $.call_expression,
                 seq('(', $._expression, ')'),
                 $.identifier,
                 $._literal
@@ -89,9 +90,7 @@ module.exports = grammar({
             $._pattern // necessary because (P) is not a valid tuple pattern
         ),
 
-        keyword_params: $ => choice(
-            $._record_pattern_elements
-        ),
+        keyword_params: $ => $._record_pattern_elements,
 
         //---
         // Switch expression
@@ -238,6 +237,31 @@ module.exports = grammar({
         not_expression: $ => prefix_unary_op($, 'not'),
 
         //---
+        // Call expression
+        //---
+
+        call_expression: $ => prec.left(PREC.CALL, seq(
+            field('E', $._expression),
+            '(',
+            optional($._argument_list),
+            ')'
+        )),
+
+        //_argument_list: $ => seq($.positional_args, optional(seq(';', $.keyword_args))),
+
+        _argument_list: $ => choice(
+            seq($.positional_args, optional(seq(';', $.keyword_args))),
+            seq(';', $.keyword_args)
+        ),
+
+        positional_args: $ => choice(
+            $._tuple_elements,
+            $._expression // because _tuple_elements does not match _expression
+        ),
+
+        keyword_args: $ => $._record_elements,
+
+        //---
         // Identifiers, literals, patterns and comments
         //---
 
@@ -343,12 +367,10 @@ module.exports = grammar({
         // Tuple literals and patterns
         //---
 
-        tuple_literal: $ => prec.left(seq(
-            '(', $._expression, ',', separated($._expression, ','), ')'
-        )),
+        tuple_literal: $ => prec.left(seq('(', $._tuple_elements, ')')),
+        _tuple_elements: $ => seq($._expression, ',', separated($._expression, ',')),
 
         tuple_pattern: $ => prec.left(seq('(', $._tuple_pattern_elements, ')')),
-
         _tuple_pattern_elements: $ => choice(
             $.gather_pattern,
             seq($._pattern, ',', separated($._pattern, ','), optional($.gather_pattern)),
@@ -358,7 +380,8 @@ module.exports = grammar({
         // Record literals and patterns
         //---
 
-        record_literal: $ => seq('{', separated($.pair, ','), '}'),
+        record_literal: $ => seq('{', optional($._record_elements), '}'),
+        _record_elements: $ => separated1($.pair, ','),
         pair: $ => seq($._record_key, '=', $._expression),
 
         _record_key: $ => choice(
