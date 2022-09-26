@@ -421,7 +421,11 @@ while i := a[0]; not a do
     ()
 else
     1
-end
+end;
+
+while true do
+    expr;
+end;
 ---
 (chunk
     (while_expression
@@ -437,7 +441,10 @@ end
             R: (index_expression L: (identifier) R: (int_literal)))
         cond: (not_expression E: (identifier))
         body: (nil_literal)
-        else: (int_literal)))
+        else: (int_literal))
+    (while_expression
+        cond: (bool_literal)
+        body: (block (identifier))))
 
 ===
 expr.call

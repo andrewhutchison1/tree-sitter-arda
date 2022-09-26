@@ -34,8 +34,8 @@ module.exports = grammar({
 
         block: $ => prec.left(seq(
             $._expression,
-            repeat1(seq(';', $._expression)),
-            optional(';')
+            ';',
+            optional(separated1($._expression, ';'))
         )),
 
         _expression: $ => prec.left(

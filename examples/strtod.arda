@@ -1,5 +1,27 @@
 # strtod.arda
 
+# "10" -> 10
+
+fun chrtod
+    case ('0') => 0
+    case ('1') => 1
+    case ('2') => 2
+    case ('3') => 3
+    case ('4') => 4
+    case ('5') => 5
+    case ('6') => 6
+    case ('7') => 7
+    case ('8') => 8
+    case ('9') => 9
+end;
+
 fun strtod(str)
-    ()
+    L := len(str);
+    result := 0;
+
+    while i := 0; i < L do
+        result += chrtod(str[i]) * 10**(L - i - 1)
+    end;
+
+    result
 end
