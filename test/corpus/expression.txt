@@ -26,7 +26,8 @@ a orelse b; a orelse b orelse c;
 a[0]; (a + b)[a+b];
 a < b; a > b; a <= b; a >= b; a == b; a != b;
 a = b; a = b = c;
-a += 4; a -= 4; a *= 4; a /= 4; a %= 4; x **= 2
+a += 4; a -= 4; a *= 4; a /= 4; a %= 4; x **= 2;
+a.b; f(a).d.e
 ---
 (chunk
     (add_expression (identifier) (identifier))
@@ -60,7 +61,15 @@ a += 4; a -= 4; a *= 4; a /= 4; a %= 4; x **= 2
     (mul_assign_expression (identifier) (int_literal))
     (div_assign_expression (identifier) (int_literal))
     (mod_assign_expression (identifier) (int_literal))
-    (pow_assign_expression (identifier) (int_literal)))
+    (pow_assign_expression (identifier) (int_literal))
+    (dot_expression (identifier) (identifier))
+    (dot_expression
+        (dot_expression
+            (call_expression
+                (identifier)
+                (positional_args (identifier)))
+            (identifier))
+        (identifier)))
 
 ===
 expr.binop.prec

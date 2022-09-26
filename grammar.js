@@ -186,6 +186,7 @@ module.exports = grammar({
             $.define_expression,
             $.assign_expression,
             $.send_expression,
+            $.dot_expression,
             $.lt_expression,
             $.gt_expression,
             $.eq_expression,
@@ -213,6 +214,7 @@ module.exports = grammar({
         define_expression: $ => infix_binary_op($, ':=', PREC.ASSIGNMENT, {lhs: $._pattern}),
         assign_expression: $ => infix_binary_op($, '=',  PREC.ASSIGNMENT, {assoc: 'R'}),
         send_expression: $ => infix_binary_op($, '<-', PREC.CALL),
+        dot_expression: $ => infix_binary_op($, '.', PREC.CALL),
 
         lt_expression:  $ => infix_binary_op($, '<',    PREC.RELATIONAL),
         gt_expression:  $ => infix_binary_op($, '>',    PREC.RELATIONAL),

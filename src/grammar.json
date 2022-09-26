@@ -778,6 +778,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "dot_expression"
+        },
+        {
+          "type": "SYMBOL",
           "name": "lt_expression"
         },
         {
@@ -952,6 +956,39 @@
             "content": {
               "type": "STRING",
               "value": "<-"
+            }
+          },
+          {
+            "type": "FIELD",
+            "name": "R",
+            "content": {
+              "type": "SYMBOL",
+              "name": "_expression"
+            }
+          }
+        ]
+      }
+    },
+    "dot_expression": {
+      "type": "PREC_LEFT",
+      "value": 8,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "FIELD",
+            "name": "L",
+            "content": {
+              "type": "SYMBOL",
+              "name": "_expression"
+            }
+          },
+          {
+            "type": "FIELD",
+            "name": "op",
+            "content": {
+              "type": "STRING",
+              "value": "."
             }
           },
           {
