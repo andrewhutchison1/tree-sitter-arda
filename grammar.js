@@ -58,20 +58,31 @@ module.exports = grammar({
 
         case_match: $ => seq(
             field('patn', $._pattern),
-            field('body', $._case_body)
+            field('body', $._case_body),
+            ';'
         ),
 
         case_test: $ => seq(
             $._init_condition,
-            field('body', $._case_body)
+            field('body', $._case_body),
+            ';'
         ),
 
         case_fun: $ => seq(
-            'case', $._parameter_list, field('body', $._case_body)
+            $._parameter_list, field('body', $._case_body), ';'
         ),
 
         case_else: $ => seq(
-            alias($.ignore_pattern, 'ignore_pattern'), field('body', $._case_body)
+            alias($.ignore_pattern, 'ignore_pattern'),
+            field('body', $._case_body),
+            ';'
+        ),
+
+        case_after: $ => seq(
+            'after',
+            field('E', $._expression),
+            field('body', $._case_body),
+            ';'
         ),
 
         _case_body: $ => choice($.do_expression, seq('=>', $._expression)),
@@ -85,7 +96,7 @@ module.exports = grammar({
             optional(field('name', $.identifier)),
             choice(
                 seq($._parameter_list, field('body', $._body)),
-                seq(repeat1($.case_fun), optional($.case_else))
+                seq('cases', repeat1($.case_fun), optional($.case_else))
             ),
             'end'
         ),
@@ -123,14 +134,9 @@ module.exports = grammar({
 
         receive_expression: $ => seq(
             'receive',
-            repeat1(seq($.case_match, optional($.case_after))),
+            repeat1($.case_match),
+            optional($.case_after),
             'end'
-        ),
-
-        case_after: $ => seq(
-            'after',
-            field('E', $._expression),
-            field('body', $._case_body)
         ),
 
         //---
