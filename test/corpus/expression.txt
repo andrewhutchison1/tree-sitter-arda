@@ -490,3 +490,18 @@ f(; b=4)
         (keyword_args (pair (identifier) (int_literal))))
     (call_expression (identifier)
         (keyword_args (pair (identifier) (int_literal)))))
+
+===
+expr.send
+===
+a <- b;
+f() <- {a=false}
+---
+(chunk
+    (send_expression
+        (identifier)
+        (identifier))
+    (send_expression
+        (call_expression (identifier))
+        (record_literal
+            (pair (identifier) (bool_literal)))))
