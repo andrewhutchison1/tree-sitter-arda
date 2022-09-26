@@ -818,6 +818,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "pow_expression"
+        },
+        {
+          "type": "SYMBOL",
           "name": "add_assign_expression"
         },
         {
@@ -838,7 +842,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "pow_expression"
+          "name": "pow_assign_expression"
         },
         {
           "type": "SYMBOL",
@@ -1472,6 +1476,39 @@
             "content": {
               "type": "STRING",
               "value": "%="
+            }
+          },
+          {
+            "type": "FIELD",
+            "name": "R",
+            "content": {
+              "type": "SYMBOL",
+              "name": "_expression"
+            }
+          }
+        ]
+      }
+    },
+    "pow_assign_expression": {
+      "type": "PREC_LEFT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "FIELD",
+            "name": "L",
+            "content": {
+              "type": "SYMBOL",
+              "name": "_expression"
+            }
+          },
+          {
+            "type": "FIELD",
+            "name": "op",
+            "content": {
+              "type": "STRING",
+              "value": "**="
             }
           },
           {
