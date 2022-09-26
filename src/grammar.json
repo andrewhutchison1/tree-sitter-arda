@@ -802,7 +802,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "add_eq_expression"
+          "name": "add_assign_expression"
         },
         {
           "type": "SYMBOL",
@@ -1139,7 +1139,7 @@
         ]
       }
     },
-    "add_eq_expression": {
+    "add_assign_expression": {
       "type": "PREC_LEFT",
       "value": 0,
       "content": {
