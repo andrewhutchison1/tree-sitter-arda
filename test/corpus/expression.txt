@@ -206,15 +206,15 @@ fun g(a; b)
     1; 2
 end;
 
-fun f(a?)
+fun f(a)
     true
 end;
 
-fun eq(lhs, rhs, (:s, 0)?)
+fun eq(lhs, rhs, (:s, 0))
     true
 end;
 
-fun fcmp(lhs, rhs; eps?)
+fun fcmp(lhs, rhs; eps)
     eps
 end
 ---
@@ -254,7 +254,7 @@ end
         
     (fun_expression
         name: (identifier)
-        (positional_params (opt_pattern (identifier)))
+        (positional_params (identifier))
         body: (bool_literal))
 
     (fun_expression
@@ -262,13 +262,13 @@ end
         (positional_params
             (identifier)
             (identifier)
-            (opt_pattern (tuple_pattern (sym_literal) (int_literal))))
+            (tuple_pattern (sym_literal) (int_literal)))
         body: (bool_literal))
         
     (fun_expression
         name: (identifier)
         (positional_params (identifier) (identifier))
-        (keyword_params (key_pattern (opt_pattern (identifier))))
+        (keyword_params (key_pattern (identifier)))
         body: (identifier)))
 
 ===
@@ -278,6 +278,8 @@ fun f
     case (a, b) do
         a + b
     end
+
+    else do false end
 end;
 
 fun g
@@ -292,7 +294,9 @@ end
         name: (identifier)
         (case_fun
             (positional_params (identifier) (identifier))
-            body: (do_expression (add_expression L: (identifier) R: (identifier)))))
+            body: (do_expression (add_expression L: (identifier) R: (identifier))))
+        (case_else
+            body: (do_expression (bool_literal))))
             
     (fun_expression
         name: (identifier)

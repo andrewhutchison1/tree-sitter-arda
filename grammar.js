@@ -107,17 +107,13 @@ module.exports = grammar({
         if_expression: $ => seq(
             'if',
             $._init_condition,
-            'then',
-            field('then', $._body),
+            'then', field('then', $._body),
             optional(seq('else', field('else', $._body))),
             'end'
         ),
 
         _init_condition: $ => seq(
-            optional(seq(
-                field('init', $.define_expression, ','),
-                ';'
-            )),
+            optional(seq(field('init', $.define_expression), ';')),
             field('cond', $._conditional_expression)
         ),
 
@@ -178,7 +174,6 @@ module.exports = grammar({
         _pattern: $ => choice(
             $.identifier,
             $.pin_pattern,
-            $.opt_pattern,
             $._atomic_literal,
             $.tuple_pattern,
             $.record_pattern

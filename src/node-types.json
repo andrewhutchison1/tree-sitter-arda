@@ -973,10 +973,6 @@
             "named": true
           },
           {
-            "type": "opt_pattern",
-            "named": true
-          },
-          {
             "type": "pin_pattern",
             "named": true
           },
@@ -1649,10 +1645,6 @@
           "named": true
         },
         {
-          "type": "opt_pattern",
-          "named": true
-        },
-        {
           "type": "pin_pattern",
           "named": true
         },
@@ -2101,10 +2093,6 @@
           },
           {
             "type": "nil_literal",
-            "named": true
-          },
-          {
-            "type": "opt_pattern",
             "named": true
           },
           {
@@ -3009,10 +2997,6 @@
           "named": true
         },
         {
-          "type": "opt_pattern",
-          "named": true
-        },
-        {
           "type": "pin_pattern",
           "named": true
         },
@@ -3643,10 +3627,6 @@
           "named": true
         },
         {
-          "type": "opt_pattern",
-          "named": true
-        },
-        {
           "type": "pin_pattern",
           "named": true
         },
@@ -3704,10 +3684,6 @@
         },
         {
           "type": "nil_literal",
-          "named": true
-        },
-        {
-          "type": "opt_pattern",
           "named": true
         },
         {
@@ -4395,10 +4371,6 @@
         },
         {
           "type": "nil_literal",
-          "named": true
-        },
-        {
-          "type": "opt_pattern",
           "named": true
         },
         {

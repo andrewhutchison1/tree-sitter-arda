@@ -1008,10 +1008,6 @@
         },
         {
           "type": "SYMBOL",
-          "name": "opt_pattern"
-        },
-        {
-          "type": "SYMBOL",
           "name": "_atomic_literal"
         },
         {
