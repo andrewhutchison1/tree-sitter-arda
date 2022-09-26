@@ -2,12 +2,10 @@
 expr.ident
 ===
 hello;
-_;
 _a000;
 _0_;
 ---
 (chunk
-    (identifier)
     (identifier)
     (identifier)
     (identifier))
@@ -320,7 +318,7 @@ end
             (positional_params (identifier) (int_literal))
             body: (int_literal))
         (case_fun
-            (positional_params (identifier) (identifier))
+            (positional_params (ignore_pattern) (identifier))
             body: (negate_expression E: (int_literal)))
         (case_else body: (int_literal))))
 

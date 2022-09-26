@@ -279,14 +279,17 @@ module.exports = grammar({
         _pattern: $ => choice(
             $.identifier,
             $.pin_pattern,
+            $.ignore_pattern,
             $._atomic_literal,
             $.tuple_pattern,
             $.record_pattern
         ),
 
         gather_pattern: $ => seq('...', optional($._pattern)),
-        pin_pattern: $ => seq('^', alias($.identifier, 'identifier')),
         opt_pattern: $ => seq($._pattern, '?'),
+
+        pin_pattern: $ => seq('^', alias($.identifier, 'identifier')),
+        ignore_pattern: $ => '_',
 
         _atomic_literal: $ => choice(
             $.nil_literal,

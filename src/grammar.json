@@ -1661,6 +1661,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "ignore_pattern"
+        },
+        {
+          "type": "SYMBOL",
           "name": "_atomic_literal"
         },
         {
@@ -1694,6 +1698,19 @@
         }
       ]
     },
+    "opt_pattern": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_pattern"
+        },
+        {
+          "type": "STRING",
+          "value": "?"
+        }
+      ]
+    },
     "pin_pattern": {
       "type": "SEQ",
       "members": [
@@ -1712,18 +1729,9 @@
         }
       ]
     },
-    "opt_pattern": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "_pattern"
-        },
-        {
-          "type": "STRING",
-          "value": "?"
-        }
-      ]
+    "ignore_pattern": {
+      "type": "STRING",
+      "value": "_"
     },
     "_atomic_literal": {
       "type": "CHOICE",
