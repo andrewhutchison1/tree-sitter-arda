@@ -138,7 +138,7 @@
           },
           {
             "type": "SYMBOL",
-            "name": "switch_expression"
+            "name": "match_expression"
           },
           {
             "type": "SYMBOL",
@@ -482,12 +482,12 @@
       "type": "SYMBOL",
       "name": "_record_pattern_elements"
     },
-    "switch_expression": {
+    "match_expression": {
       "type": "SEQ",
       "members": [
         {
           "type": "STRING",
-          "value": "switch"
+          "value": "match"
         },
         {
           "type": "SEQ",

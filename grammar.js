@@ -42,7 +42,7 @@ module.exports = grammar({
         _expression: $ => prec.left(
             choice(
                 $.fun_expression,
-                $.switch_expression,
+                $.match_expression,
                 $.receive_expression,
                 $.do_expression,
                 $.if_expression,
@@ -116,11 +116,11 @@ module.exports = grammar({
         keyword_params: $ => $._record_pattern_elements,
 
         //---
-        // Switch expression
+        // match expression
         //---
 
-        switch_expression: $ => seq(
-            'switch',
+        match_expression: $ => seq(
+            'match',
             seq(
                 choice(
                     seq($._init_condition, 'cases', repeat1($.case_match)),
