@@ -9,7 +9,7 @@ end
 ---
 (chunk
     (if_expression
-        cond: (match_expression L: (identifier) R: (int_literal))
+        cond: (test_expression L: (identifier) R: (int_literal))
         then: (bool_literal))
         
     (fun_expression
@@ -25,7 +25,7 @@ fun (^a, ^b, ^c) true end
 ---
 (chunk
     (if_expression
-        cond: (match_expression L: (pin_pattern) R: (int_literal))
+        cond: (test_expression L: (pin_pattern) R: (int_literal))
         then: (bool_literal))
     (fun_expression
         (positional_params (pin_pattern) (pin_pattern) (pin_pattern))
@@ -43,37 +43,37 @@ if (a, (^b, c)) ?= test then true end
 ---
 (chunk
     (if_expression
-        cond: (match_expression
+        cond: (test_expression
             L: (tuple_pattern (identifier) (identifier))
             R: (identifier))
         then: (bool_literal))
 
     (if_expression
-        cond: (match_expression
+        cond: (test_expression
             L: (tuple_pattern (gather_pattern (identifier)))
             R: (identifier))
         then: (bool_literal))
 
     (if_expression
-        cond: (match_expression
+        cond: (test_expression
             L: (tuple_pattern (gather_pattern))
             R: (identifier))
         then: (bool_literal))
 
     (if_expression
-        cond: (match_expression
+        cond: (test_expression
             L: (tuple_pattern (identifier) (gather_pattern (identifier)))
             R: (identifier))
         then: (bool_literal))
         
     (if_expression
-        cond: (match_expression
+        cond: (test_expression
             L: (tuple_pattern (identifier) (tuple_pattern (identifier) (identifier)))
             R: (identifier))
         then: (bool_literal))
         
     (if_expression
-        cond: (match_expression
+        cond: (test_expression
             L: (tuple_pattern (identifier) (tuple_pattern (pin_pattern) (identifier)))
             R: (identifier))
         then: (bool_literal)))
@@ -90,14 +90,14 @@ end
 ---
 (chunk
     (if_expression
-        cond: (match_expression
+        cond: (test_expression
             L: (record_pattern
                 (key_pattern (identifier))
                 (key_pattern (identifier)))
             R: (identifier))
         then: (bool_literal))
     (if_expression
-        cond: (match_expression
+        cond: (test_expression
             L: (record_pattern
                 (pair_pattern (identifier) (identifier))
                 (pair_pattern (identifier) (identifier)))

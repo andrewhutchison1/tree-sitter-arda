@@ -161,7 +161,7 @@ module.exports = grammar({
         ),
 
         _conditional_expression: $ => choice(
-            $.match_expression,
+            $.test_expression,
             $._expression,
         ),
 
@@ -230,7 +230,7 @@ module.exports = grammar({
             ']'
         )),
 
-        match_expression: $ => infix_binary_op($, '?=', PREC.RELATIONAL, {lhs: $._pattern}),
+        test_expression: $ => infix_binary_op($, '?=', PREC.RELATIONAL, {lhs: $._pattern}),
 
         //---
         // Unary operators

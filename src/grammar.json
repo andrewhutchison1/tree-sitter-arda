@@ -699,7 +699,7 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "match_expression"
+          "name": "test_expression"
         },
         {
           "type": "SYMBOL",
@@ -1469,7 +1469,7 @@
         ]
       }
     },
-    "match_expression": {
+    "test_expression": {
       "type": "PREC_LEFT",
       "value": 3,
       "content": {

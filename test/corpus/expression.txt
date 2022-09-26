@@ -117,7 +117,7 @@ end
 (chunk
     (tuple_literal (identifier) (identifier))
     (if_expression
-        cond: (match_expression
+        cond: (test_expression
             L: (tuple_pattern (identifier) (identifier))
             R: (tuple_literal (int_literal) (int_literal)))
         then: (bool_literal)))
@@ -158,7 +158,7 @@ end
         else: (int_literal))
         
     (if_expression
-        cond: (match_expression
+        cond: (test_expression
             L: (tuple_pattern (identifier) (identifier))
             R: (identifier))
         then: (bool_literal)
