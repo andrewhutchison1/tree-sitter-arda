@@ -181,6 +181,12 @@ module.exports = grammar({
 
         _binary_op: $ => choice(
             $.define_expression,
+            $.lt_expression,
+            $.gt_expression,
+            $.eq_expression,
+            $.ne_expression,
+            $.le_expression,
+            $.ge_expression,
             $.add_expression,
             $.sub_expression,
             $.mul_expression,
@@ -194,6 +200,12 @@ module.exports = grammar({
         ),
 
         define_expression:  $ => infix_binary_op($, ':=',       PREC.ASSIGNMENT, {lhs: $._pattern}),
+        lt_expression:      $ => infix_binary_op($, '<',        PREC.RELATIONAL),
+        gt_expression:      $ => infix_binary_op($, '>',        PREC.RELATIONAL),
+        eq_expression:      $ => infix_binary_op($, '==',       PREC.RELATIONAL),
+        ne_expression:      $ => infix_binary_op($, '!=',       PREC.RELATIONAL),
+        le_expression:      $ => infix_binary_op($, '<=',       PREC.RELATIONAL),
+        ge_expression:      $ => infix_binary_op($, '>=',       PREC.RELATIONAL),
         add_expression:     $ => infix_binary_op($, '+',        PREC.ADDITIVE),
         sub_expression:     $ => infix_binary_op($, '-',        PREC.ADDITIVE),
         mul_expression:     $ => infix_binary_op($, '*',        PREC.MULTIPLICATIVE),
