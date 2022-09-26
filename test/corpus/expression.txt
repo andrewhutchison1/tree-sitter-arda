@@ -24,8 +24,8 @@ a and b; a and b and c;
 a or b; a or b or c;
 a orelse b; a orelse b orelse c;
 a[0]; (a + b)[a+b];
-
 a < b; a > b; a <= b; a >= b; a == b; a != b;
+a = b; a = b = c
 ---
 (chunk
     (add_expression (identifier) (identifier))
@@ -51,7 +51,9 @@ a < b; a > b; a <= b; a >= b; a == b; a != b;
     (le_expression (identifier) (identifier))
     (ge_expression (identifier) (identifier))
     (eq_expression (identifier) (identifier))
-    (ne_expression (identifier) (identifier)))
+    (ne_expression (identifier) (identifier))
+    (assign_expression (identifier) (identifier))
+    (assign_expression (identifier) (assign_expression (identifier) (identifier))))
 
 ===
 expr.binop.prec
