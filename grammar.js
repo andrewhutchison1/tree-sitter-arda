@@ -19,7 +19,8 @@ module.exports = grammar({
 
     conflicts: $ => [
         [$._pattern, $._expression],
-        [$.record_pattern, $.record_literal]
+        [$.record_pattern, $.record_literal],
+        [$.case_else, $._pattern]
     ],
 
     rules: {
@@ -55,6 +56,26 @@ module.exports = grammar({
             )
         ),
 
+        case_match: $ => seq(
+            field('patn', $._pattern),
+            field('body', $._case_body)
+        ),
+
+        case_test: $ => seq(
+            $._init_condition,
+            field('body', $._case_body)
+        ),
+
+        case_fun: $ => seq(
+            'case', $._parameter_list, field('body', $._case_body)
+        ),
+
+        case_else: $ => seq(
+            alias($.ignore_pattern, 'ignore_pattern'), field('body', $._case_body)
+        ),
+
+        _case_body: $ => choice($.do_expression, seq('=>', $._expression)),
+
         //---
         // Function expressions
         //---
@@ -68,16 +89,6 @@ module.exports = grammar({
             ),
             'end'
         ),
-
-        case_fun: $ => seq(
-            'case', $._parameter_list, field('body', $._case_body)
-        ),
-
-        case_else: $ => seq(
-            alias($.ignore_pattern, 'ignore_pattern'), field('body', $._case_body)
-        ),
-
-        _case_body: $ => choice($.do_expression, seq('=>', $._expression)),
 
         _parameter_list: $ => seq(
             '(',
@@ -100,22 +111,10 @@ module.exports = grammar({
         switch_expression: $ => seq(
             'switch',
             choice(
-                seq($._init_condition, repeat1($.case_match), optional($.case_else)),
-                seq(repeat1($.case_test), optional($.case_else))
+                seq($._init_condition, 'cases', repeat1($.case_match), optional($.case_else)),
+                seq('cases', repeat1($.case_test), optional($.case_else))
             ),
             'end'
-        ),
-
-        case_match: $ => seq(
-            'case',
-            field('P', $._pattern),
-            field('body', $._case_body)
-        ),
-
-        case_test: $ => seq(
-            'case',
-            $._init_condition,
-            field('body', $._case_body)
         ),
 
         //---
@@ -351,10 +350,10 @@ module.exports = grammar({
                 token.immediate(quote)
             );
 
-            return repeat1(choice(
+            return prec.left(repeat1(choice(
                 quoted_string('\'', /[^'\\\n]+/),
                 quoted_string('"', /[^"\\\n]+/)
-            ));
+            )));
         },
 
         escape_sequence: $ => token.immediate(

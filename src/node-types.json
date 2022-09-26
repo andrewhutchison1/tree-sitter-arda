@@ -2401,56 +2401,6 @@
     "type": "case_match",
     "named": true,
     "fields": {
-      "P": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "bool_literal",
-            "named": true
-          },
-          {
-            "type": "float_literal",
-            "named": true
-          },
-          {
-            "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "ignore_pattern",
-            "named": true
-          },
-          {
-            "type": "int_literal",
-            "named": true
-          },
-          {
-            "type": "nil_literal",
-            "named": true
-          },
-          {
-            "type": "pin_pattern",
-            "named": true
-          },
-          {
-            "type": "record_pattern",
-            "named": true
-          },
-          {
-            "type": "str_literal",
-            "named": true
-          },
-          {
-            "type": "sym_literal",
-            "named": true
-          },
-          {
-            "type": "tuple_pattern",
-            "named": true
-          }
-        ]
-      },
       "body": {
         "multiple": true,
         "required": true,
@@ -2613,6 +2563,56 @@
           },
           {
             "type": "while_expression",
+            "named": true
+          }
+        ]
+      },
+      "patn": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "bool_literal",
+            "named": true
+          },
+          {
+            "type": "float_literal",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "ignore_pattern",
+            "named": true
+          },
+          {
+            "type": "int_literal",
+            "named": true
+          },
+          {
+            "type": "nil_literal",
+            "named": true
+          },
+          {
+            "type": "pin_pattern",
+            "named": true
+          },
+          {
+            "type": "record_pattern",
+            "named": true
+          },
+          {
+            "type": "str_literal",
+            "named": true
+          },
+          {
+            "type": "sym_literal",
+            "named": true
+          },
+          {
+            "type": "tuple_pattern",
             "named": true
           }
         ]
@@ -11308,6 +11308,10 @@
     "named": false
   },
   {
+    "type": "cases",
+    "named": false
+  },
+  {
     "type": "comment",
     "named": true
   },
@@ -11337,11 +11341,11 @@
   },
   {
     "type": "identifier",
-    "named": true
+    "named": false
   },
   {
     "type": "identifier",
-    "named": false
+    "named": true
   },
   {
     "type": "if",
@@ -11349,11 +11353,11 @@
   },
   {
     "type": "ignore_pattern",
-    "named": true
+    "named": false
   },
   {
     "type": "ignore_pattern",
-    "named": false
+    "named": true
   },
   {
     "type": "int_literal",
