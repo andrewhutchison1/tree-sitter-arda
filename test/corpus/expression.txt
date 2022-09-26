@@ -357,7 +357,7 @@ end
     (switch_expression
         init: (define_expression L: (identifier) R: (bool_literal))
         cond: (not_expression E: (identifier))
-        
+
         (case_match
             P: (int_literal)
             body: (do_expression (identifier)))))
@@ -375,3 +375,24 @@ end
 (chunk
     (do_expression (int_literal))
     (do_expression (int_literal) (int_literal) (int_literal)))
+
+===
+expr.receive
+===
+receive
+    case 0 => 1
+    case 1 do 2 end
+    after 1000 => 3
+end
+---
+(chunk
+    (receive_expression
+        (case_match
+            P: (int_literal)
+            body: (int_literal))
+        (case_match
+            P: (int_literal)
+            body: (do_expression (int_literal)))
+        (case_after
+            E: (int_literal)
+            body: (int_literal))))

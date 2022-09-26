@@ -40,6 +40,7 @@ module.exports = grammar({
             choice(
                 $.fun_expression,
                 $.switch_expression,
+                $.receive_expression,
                 $.do_expression,
                 $.if_expression,
                 $._binary_op,
@@ -112,6 +113,22 @@ module.exports = grammar({
         case_test: $ => seq(
             'case',
             $._init_condition,
+            field('body', $._case_body)
+        ),
+
+        //---
+        // Receive expression
+        //---
+
+        receive_expression: $ => seq(
+            'receive',
+            repeat1(seq($.case_match, optional($.case_after))),
+            'end'
+        ),
+
+        case_after: $ => seq(
+            'after',
+            field('E', $._expression),
             field('body', $._case_body)
         ),
 
