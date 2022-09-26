@@ -121,9 +121,12 @@ module.exports = grammar({
 
         switch_expression: $ => seq(
             'switch',
-            choice(
-                seq($._init_condition, 'cases', repeat1($.case_match), optional($.case_else)),
-                seq('cases', repeat1($.case_test), optional($.case_else))
+            seq(
+                choice(
+                    seq($._init_condition, 'cases', repeat1($.case_match)),
+                    seq('cases', repeat1($.case_test))
+                ),
+                optional($.case_else)
             ),
             'end'
         ),
@@ -132,12 +135,7 @@ module.exports = grammar({
         // Receive expression
         //---
 
-        receive_expression: $ => seq(
-            'receive',
-            repeat1($.case_match),
-            optional($.case_after),
-            'end'
-        ),
+        receive_expression: $ => seq('receive', repeat1($.case_match), optional($.case_after), 'end'),
 
         //---
         // Do expression
