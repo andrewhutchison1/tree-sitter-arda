@@ -296,8 +296,13 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "STRING",
-          "value": "else"
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "ignore_pattern"
+          },
+          "named": false,
+          "value": "ignore_pattern"
         },
         {
           "type": "FIELD",

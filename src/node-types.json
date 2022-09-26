@@ -11352,6 +11352,10 @@
     "named": true
   },
   {
+    "type": "ignore_pattern",
+    "named": false
+  },
+  {
     "type": "int_literal",
     "named": true
   },

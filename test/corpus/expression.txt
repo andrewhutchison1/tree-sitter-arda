@@ -292,14 +292,14 @@ fun f
         a + b
     end
 
-    else do false end
+    _ do false end
 end;
 
 fun g
     case (0, 0) => 0
     case (a, 0) => 1
     case (_, b) => -1
-    else => 42
+    _ => 42
 end;
 
 fun h
@@ -349,12 +349,12 @@ switch
     case 0 do x end
     case 1 => y
     case i := 0; not a => i
-    else do 0 end
+    _ do 0 end
 end;
 
 switch e
     case 0 do y end
-    else => false
+    _ => false
 end;
 
 switch a := true; not a

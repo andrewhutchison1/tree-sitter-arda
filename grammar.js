@@ -74,7 +74,7 @@ module.exports = grammar({
         ),
 
         case_else: $ => seq(
-            'else', field('body', $._case_body)
+            alias($.ignore_pattern, 'ignore_pattern'), field('body', $._case_body)
         ),
 
         _case_body: $ => choice($.do_expression, seq('=>', $._expression)),
