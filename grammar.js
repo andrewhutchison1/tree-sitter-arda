@@ -39,6 +39,7 @@ module.exports = grammar({
         _expression: $ => prec.left(
             choice(
                 $.fun_expression,
+                $.switch_expression,
                 $.do_expression,
                 $.if_expression,
                 $._binary_op,
@@ -47,11 +48,6 @@ module.exports = grammar({
                 $.identifier,
                 $._literal
             )
-        ),
-
-        _conditional_expression: $ => choice(
-            $.match_expression,
-            $._expression,
         ),
 
         //---
@@ -69,14 +65,14 @@ module.exports = grammar({
         ),
 
         case_fun: $ => seq(
-            'case', $._parameter_list, field('body', choice($.do_expression, $._arrow_body))
+            'case', $._parameter_list, field('body', $._case_body)
         ),
 
         case_else: $ => seq(
-            'else', field('body', choice($.do_expression, $._arrow_body))
+            'else', field('body', $._case_body)
         ),
 
-        _arrow_body: $ => seq('=>', $._expression),
+        _case_body: $ => choice($.do_expression, seq('=>', $._expression)),
 
         _parameter_list: $ => seq(
             '(',
@@ -87,11 +83,36 @@ module.exports = grammar({
 
         positional_params: $ => choice(
             $._tuple_pattern_elements,
-            $._pattern
+            $._pattern // necessary because (P) is not a valid tuple pattern
         ),
 
         keyword_params: $ => choice(
             $._record_pattern_elements
+        ),
+
+        //---
+        // Switch expression
+        //---
+
+        switch_expression: $ => seq(
+            'switch',
+            choice(
+                seq($._init_condition, repeat1($.case_match), optional($.case_else)),
+                seq(repeat1($.case_test), optional($.case_else))
+            ),
+            'end'
+        ),
+
+        case_match: $ => seq(
+            'case',
+            field('P', $._pattern),
+            field('body', $._case_body)
+        ),
+
+        case_test: $ => seq(
+            'case',
+            $._init_condition,
+            field('body', $._case_body)
         ),
 
         //---
@@ -115,6 +136,11 @@ module.exports = grammar({
         _init_condition: $ => seq(
             optional(seq(field('init', $.define_expression), ';')),
             field('cond', $._conditional_expression)
+        ),
+
+        _conditional_expression: $ => choice(
+            $.match_expression,
+            $._expression,
         ),
 
         //---
