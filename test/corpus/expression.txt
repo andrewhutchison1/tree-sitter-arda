@@ -141,6 +141,30 @@ end
         else: (block (int_literal) (int_literal))))
 
 ===
+expr.if.init
+===
+if a := test; a then
+    a
+end;
+
+if (a, b) := (0, 1); a + b then
+    true
+end
+---
+(chunk
+    (if_expression
+        init: (define_expression L: (identifier) R: (identifier))
+        cond: (identifier)
+        then: (identifier))
+        
+    (if_expression
+        init: (define_expression
+            L: (tuple_pattern (identifier) (identifier))
+            R: (tuple_literal (int_literal) (int_literal)))
+        cond: (add_expression L: (identifier) R: (identifier))
+        then: (bool_literal)))
+
+===
 expr.fun
 ===
 fun () true end;

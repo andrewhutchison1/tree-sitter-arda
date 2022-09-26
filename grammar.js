@@ -6,7 +6,7 @@ const PREC = {
     RELATIONAL: 3,
     CONJUNCTION: 2,
     DISJUNCTION: 1,
-    ASSIGN: 0,
+    ASSIGNMENT: 0,
 };
 
 module.exports = grammar({
@@ -102,11 +102,19 @@ module.exports = grammar({
 
         if_expression: $ => seq(
             'if',
-            field('cond', $._conditional_expression),
+            $._init_condition,
             'then',
             field('then', $._body),
             optional(seq('else', field('else', $._body))),
             'end'
+        ),
+
+        _init_condition: $ => seq(
+            optional(seq(
+                field('init', $.define_expression, ','),
+                ';'
+            )),
+            field('cond', $._conditional_expression)
         ),
 
         //---
@@ -114,6 +122,7 @@ module.exports = grammar({
         //---
 
         _binary_op: $ => choice(
+            $.define_expression,
             $.add_expression,
             $.sub_expression,
             $.mul_expression,
@@ -123,6 +132,7 @@ module.exports = grammar({
             $.orelse_expression,
         ),
 
+        define_expression: $ => infix_binary_op($, ':=', PREC.ASSIGNMENT, {lhs: $._pattern}),
         add_expression: $ => infix_binary_op($, '+',    PREC.ADDITIVE),
         sub_expression: $ => infix_binary_op($, '-',    PREC.ADDITIVE),
         mul_expression: $ => infix_binary_op($, '*',    PREC.MULTIPLICATIVE),
