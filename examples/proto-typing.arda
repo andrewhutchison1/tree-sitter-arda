@@ -1,0 +1,35 @@
+# "proto-typing"
+
+# Investigating predicate patterns to emulate dispatching on
+# the type of a value
+
+# Predicate patterns (spelled p :: P) are equivalent to
+# p when P(p). Here P is any expression that evaluates to
+# a function callable with one argument.
+
+# Assume availability of builtin `int`, `str`, `tuple` predicate patterns
+
+fun Pair(P0, P1)
+    fun cases
+        (x :: P0, y :: P1) => true;
+        _ => false;
+    end
+end;
+
+fun Numeric cases
+    (e :: int | e :: float) => true;
+    _ => false;
+end;
+
+Point := Pair(Numeric, Numeric);
+
+fun dist(p1 :: Point, p2 :: Point)
+    sqrt((p2[0] - p1[0])**2 + (p2[1] - p1[1])**2)
+end;
+
+fun All(P)
+    fun cases
+        (...(x :: P)) => true;
+        _ => false;
+    end
+end

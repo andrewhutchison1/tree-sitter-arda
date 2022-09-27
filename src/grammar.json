@@ -2052,12 +2052,16 @@
         {
           "type": "SYMBOL",
           "name": "guard_pattern"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "predicate_pattern"
         }
       ]
     },
     "capture_pattern": {
       "type": "PREC_LEFT",
-      "value": 0,
+      "value": 2,
       "content": {
         "type": "SEQ",
         "members": [
@@ -2090,7 +2094,7 @@
     },
     "guard_pattern": {
       "type": "PREC_LEFT",
-      "value": 0,
+      "value": 1,
       "content": {
         "type": "SEQ",
         "members": [
@@ -2121,6 +2125,39 @@
         ]
       }
     },
+    "predicate_pattern": {
+      "type": "PREC_LEFT",
+      "value": 4,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "FIELD",
+            "name": "L",
+            "content": {
+              "type": "SYMBOL",
+              "name": "_pattern"
+            }
+          },
+          {
+            "type": "FIELD",
+            "name": "op",
+            "content": {
+              "type": "STRING",
+              "value": "::"
+            }
+          },
+          {
+            "type": "FIELD",
+            "name": "R",
+            "content": {
+              "type": "SYMBOL",
+              "name": "_expression"
+            }
+          }
+        ]
+      }
+    },
     "_binary_pattern": {
       "type": "CHOICE",
       "members": [
@@ -2132,7 +2169,7 @@
     },
     "alt_pattern": {
       "type": "PREC_RIGHT",
-      "value": 1,
+      "value": 3,
       "content": {
         "type": "SEQ",
         "members": [
@@ -2892,25 +2929,29 @@
       ]
     },
     "gather_pattern": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "..."
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "_pattern"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        }
-      ]
+      "type": "PREC_LEFT",
+      "value": 7,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "..."
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "_pattern"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          }
+        ]
+      }
     },
     "record_literal": {
       "type": "SEQ",

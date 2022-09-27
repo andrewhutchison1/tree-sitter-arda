@@ -7,11 +7,14 @@ const PREC = {
     LITERAL: 4,
     RELATIONAL: 3,
     CONJUNCTION: 2,
-    CAPTURE_PATTERN: 2,
     DISJUNCTION: 1,
-    ALT_PATTERN: 1,
-    CAPTURE_GUARD_PATTERN: 0,
     ASSIGNMENT: 0,
+
+    GATHER_PATTERN: 5,
+    PREDICATE_PATTERN: 4,
+    ALT_PATTERN: 3,
+    CAPTURE_PATTERN: 2,
+    GUARD_PATTERN: 1,
 };
 
 module.exports = grammar({
@@ -323,14 +326,19 @@ module.exports = grammar({
         _unary_pattern: $ => choice(
             $.capture_pattern,
             $.guard_pattern,
+            $.predicate_pattern
         ),
 
-        capture_pattern: $ => infix_binary_op($, '@', PREC.CAPTURE_GUARD_PATTERN, {
+        capture_pattern: $ => infix_binary_op($, '@', PREC.CAPTURE_PATTERN, {
             lhs: $.identifier,
             rhs: $._pattern
         }),
 
-        guard_pattern: $ => infix_binary_op($, 'when', PREC.CAPTURE_GUARD_PATTERN, {
+        guard_pattern: $ => infix_binary_op($, 'when', PREC.GUARD_PATTERN, {
+            lhs: $._pattern
+        }),
+
+        predicate_pattern: $ => infix_binary_op($, '::', PREC.PREDICATE_PATTERN, {
             lhs: $._pattern
         }),
 
@@ -440,7 +448,10 @@ module.exports = grammar({
             seq($._pattern, ',', separated($._pattern, ','), optional($.gather_pattern)),
         ),
 
-        gather_pattern: $ => seq('...', optional($._pattern)),
+        gather_pattern: $ => prec.left(PREC.PREFIX, seq(
+            '...',
+            optional($._pattern)
+        )),
 
         //---
         // Record literals and patterns

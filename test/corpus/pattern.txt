@@ -219,3 +219,46 @@ end
                         R: (gt_expression L: (identifier) R: (int_literal))))
                 R: (eq_expression L: (identifier) R: (identifier)))
             body: (int_literal))))
+
+===
+pat.pred
+===
+fun cases
+    (x :: P, y :: Q) => true;
+    _ => false;
+end;
+
+fun cases
+    (x :: P | y :: Q) => true;
+    _ => false;
+end;
+
+fun cases
+    (...(x :: P)) => false;
+end;
+---
+(chunk
+    (fun_expression
+        (case_fun
+            (positional_params
+                (predicate_pattern L: (identifier) R: (identifier))
+                (predicate_pattern L: (identifier) R: (identifier)))
+            body: (bool_literal))
+        (case_else body: (bool_literal)))
+        
+    (fun_expression
+        (case_fun
+            (positional_params
+                (alt_pattern
+                    L: (predicate_pattern L: (identifier) R: (identifier))
+                    R: (predicate_pattern L: (identifier) R: (identifier))))
+            body: (bool_literal))
+        (case_else body: (bool_literal)))
+        
+    (fun_expression
+        (case_fun
+            (positional_params
+                (gather_pattern (predicate_pattern
+                    L: (identifier)
+                    R: (identifier))))
+            body: (bool_literal))))
