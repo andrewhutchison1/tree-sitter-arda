@@ -107,3 +107,32 @@ end
         then: (add_expression
             L: (identifier)
             R: (identifier))))
+
+===
+pat.alt
+===
+match e cases
+    0 | 1 => true;
+end;
+
+fun f(x, 0|1|2; base=:bin|:dec)
+    false
+end;
+---
+(chunk
+    (match_expression
+        cond: (identifier)
+        (case_match
+            patn: (alt_pattern L: (int_literal) R: (int_literal))
+            body: (bool_literal)))
+    
+    (fun_expression
+        name: (identifier)
+        (positional_params
+            (identifier)
+            (alt_pattern
+                L: (int_literal)
+                R: (alt_pattern L: (int_literal) R: (int_literal))))
+        (keyword_params
+            (pair_pattern (identifier) (alt_pattern L: (sym_literal) R: (sym_literal))))
+        body: (bool_literal)))

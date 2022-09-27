@@ -8,6 +8,7 @@ const PREC = {
     RELATIONAL: 3,
     CONJUNCTION: 2,
     DISJUNCTION: 1,
+    ALT_PATTERN: 1,
     ASSIGNMENT: 0,
 };
 
@@ -216,12 +217,12 @@ module.exports = grammar({
         send_expression: $ => infix_binary_op($, '<-', PREC.CALL),
         dot_expression: $ => infix_binary_op($, '.', PREC.CALL),
 
-        lt_expression:  $ => infix_binary_op($, '<',    PREC.RELATIONAL),
-        gt_expression:  $ => infix_binary_op($, '>',    PREC.RELATIONAL),
-        eq_expression:  $ => infix_binary_op($, '==',   PREC.RELATIONAL),
-        ne_expression:  $ => infix_binary_op($, '!=',   PREC.RELATIONAL),
-        le_expression:  $ => infix_binary_op($, '<=',   PREC.RELATIONAL),
-        ge_expression:  $ => infix_binary_op($, '>=',   PREC.RELATIONAL),
+        lt_expression: $ => infix_binary_op($, '<',    PREC.RELATIONAL),
+        gt_expression: $ => infix_binary_op($, '>',    PREC.RELATIONAL),
+        eq_expression: $ => infix_binary_op($, '==',   PREC.RELATIONAL),
+        ne_expression: $ => infix_binary_op($, '!=',   PREC.RELATIONAL),
+        le_expression: $ => infix_binary_op($, '<=',   PREC.RELATIONAL),
+        ge_expression: $ => infix_binary_op($, '>=',   PREC.RELATIONAL),
 
         add_expression: $ => infix_binary_op($, '+',    PREC.ADDITIVE),
         sub_expression: $ => infix_binary_op($, '-',    PREC.ADDITIVE),
@@ -301,6 +302,7 @@ module.exports = grammar({
             $.identifier,
             $.pin_pattern,
             $.ignore_pattern,
+            $.alt_pattern,
             $._atomic_literal,
             $.tuple_pattern,
             $.record_pattern
@@ -311,6 +313,10 @@ module.exports = grammar({
 
         pin_pattern: $ => seq('^', alias($.identifier, 'identifier')),
         ignore_pattern: $ => '_',
+
+        alt_pattern: $ => infix_binary_op(
+            $, '|', PREC.ALT_PATTERN, {assoc: 'R', lhs: $._pattern, rhs: $._pattern}
+        ),
 
         _atomic_literal: $ => choice(
             $.nil_literal,

@@ -375,6 +375,10 @@ end;
 
 match a := true; not a cases
     0 do z end;
+end;
+
+match a cases
+    1 => false;
 end
 ---
 (chunk
@@ -407,7 +411,13 @@ end
 
         (case_match
             patn: (int_literal)
-            body: (do_expression (identifier)))))
+            body: (do_expression (identifier))))
+            
+    (match_expression
+        cond: (identifier)
+        (case_match
+            patn: (int_literal)
+            body: (bool_literal))))
 
 ===
 expr.do

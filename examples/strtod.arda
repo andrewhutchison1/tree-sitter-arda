@@ -3,25 +3,47 @@
 # "10" -> 10
 
 fun chrtod cases
-    ('0') => 0;
-    ('1') => 1;
-    ('2') => 2;
-    ('3') => 3;
-    ('4') => 4;
-    ('5') => 5;
-    ('6') => 6;
-    ('7') => 7;
-    ('8') => 8;
-    ('9') => 9;
+    (chr; base=:bin|:oct|:dec|:hex) => match chr cases
+        '0' => 0;
+        '1' => 1;
+    end;
+
+    (chr; base=:oct|:dec|:hex) => match chr cases
+        '2' => 2;
+        '3' => 3;
+        '4' => 4;
+        '5' => 5;
+        '6' => 6;
+        '7' => 7;
+    end;
+
+    (chr; base=:dec|:hex) => match chr cases
+        '8' => 8;
+        '9' => 9;
+    end;
+
+    (chr; base=:hex) => match chr cases
+        'a' | 'A' => 10;
+        'b' | 'B' => 11;
+        'c' | 'C' => 12;
+        'd' | 'D' => 13;
+        'e' | 'E' => 14;
+        'f' | 'F' => 15;
+    end;
 end;
 
-fun strtod(str)
+fun strtod(str; base=:dec)
     L := len(str);
     result := 0;
 
-    while i := 0; i < L do
-        result += chrtod(str[i]) * 10**(L - i - 1)
+    radix := match base cases
+        :bin => 2;
+        :oct => 8;
+        :dec => 10;
+        :hex => 16;
     end;
 
-    result
+    while i := 0; i < L do
+        result += chrtod(str[i]; base=base) * radix**(L - i - 1)
+    end
 end

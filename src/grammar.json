@@ -1974,6 +1974,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "alt_pattern"
+        },
+        {
+          "type": "SYMBOL",
           "name": "_atomic_literal"
         },
         {
@@ -2041,6 +2045,39 @@
     "ignore_pattern": {
       "type": "STRING",
       "value": "_"
+    },
+    "alt_pattern": {
+      "type": "PREC_RIGHT",
+      "value": 1,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "FIELD",
+            "name": "L",
+            "content": {
+              "type": "SYMBOL",
+              "name": "_pattern"
+            }
+          },
+          {
+            "type": "FIELD",
+            "name": "op",
+            "content": {
+              "type": "STRING",
+              "value": "|"
+            }
+          },
+          {
+            "type": "FIELD",
+            "name": "R",
+            "content": {
+              "type": "SYMBOL",
+              "name": "_pattern"
+            }
+          }
+        ]
+      }
     },
     "_atomic_literal": {
       "type": "CHOICE",
