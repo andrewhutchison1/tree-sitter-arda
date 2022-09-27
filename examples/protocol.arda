@@ -1,0 +1,16 @@
+# protocol.arda
+# What message routing might look like
+
+receive
+    (sender, :start) do
+        ()
+    end;
+
+    (sender, :end) do
+        ()
+    end;
+
+    msg @ (sender, _) do
+        ()
+    end;
+end

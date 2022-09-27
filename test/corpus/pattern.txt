@@ -39,7 +39,7 @@ if (...a)       ?= test then true end;
 if (...)        ?= test then true end;
 if (a, ...b)    ?= test then true end;
 if (a, (b, c))  ?= test then true end;
-if (a, (^b, c)) ?= test then true end
+if (a, (^b, c)) ?= test then true end;
 ---
 (chunk
     (if_expression
@@ -140,12 +140,26 @@ end;
 ===
 pat.capture
 ===
+x @ {a, b, c?} := {a=0, b=1};
+
 match e cases
     x @ 0   => true;
-    y @ 0|1 => 1;
+    y @ (0|1) => 1;
+    x @ (y @ 0|1, z @ 2|3) => :ok;
 end
 ---
 (chunk
+    (define_expression
+        L: (capture_pattern
+            L: (identifier)
+            R: (record_pattern
+                (key_pattern (identifier))
+                (key_pattern (identifier))
+                (key_pattern (opt_pattern (identifier)))))
+        R: (record_literal
+            (pair (identifier) (int_literal))
+            (pair (identifier) (int_literal))))
+
     (match_expression
         cond: (identifier)
         (case_match
@@ -155,4 +169,53 @@ end
             patn: (capture_pattern
                 L: (identifier)
                 R: (alt_pattern L: (int_literal) R: (int_literal)))
+            body: (int_literal))
+        (case_match
+            patn: (capture_pattern
+                L: (identifier)
+                R: (tuple_pattern
+                    (capture_pattern
+                        L: (identifier)
+                        R: (alt_pattern L: (int_literal) R: (int_literal)))
+                    (capture_pattern
+                        L: (identifier)
+                        R: (alt_pattern L: (int_literal) R: (int_literal)))))
+            body: (sym_literal))))
+
+===
+pat.guard
+===
+match e cases
+    _ when false => 0;
+    a @ (x, y) when x + y > 0 => 1;
+
+    (x when x > 0, y when y > 0) when x == y => 1;
+end
+---
+(chunk
+    (match_expression
+        cond: (identifier)
+        (case_match
+            patn: (guard_pattern L: (ignore_pattern) R: (bool_literal))
+            body: (int_literal))
+        (case_match
+            patn: (guard_pattern
+                L: (capture_pattern
+                    L: (identifier)
+                    R: (tuple_pattern (identifier) (identifier)))
+                R: (gt_expression
+                    L: (add_expression L: (identifier) R: (identifier))
+                    R: (int_literal)))
+            body: (int_literal))
+            
+        (case_match
+            patn: (guard_pattern
+                L: (tuple_pattern
+                    (guard_pattern
+                        L: (identifier)
+                        R: (gt_expression L: (identifier) R: (int_literal)))
+                    (guard_pattern
+                        L: (identifier)
+                        R: (gt_expression L: (identifier) R: (int_literal))))
+                R: (eq_expression L: (identifier) R: (identifier)))
             body: (int_literal))))

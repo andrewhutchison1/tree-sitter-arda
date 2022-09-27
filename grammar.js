@@ -10,6 +10,7 @@ const PREC = {
     CAPTURE_PATTERN: 2,
     DISJUNCTION: 1,
     ALT_PATTERN: 1,
+    CAPTURE_GUARD_PATTERN: 0,
     ASSIGNMENT: 0,
 };
 
@@ -22,7 +23,7 @@ module.exports = grammar({
     conflicts: $ => [
         [$._pattern, $._expression],
         [$.record_pattern, $.record_literal],
-        [$.case_else, $._pattern]
+        [$.case_else, $._ground_pattern]
     ],
 
     rules: {
@@ -301,28 +302,47 @@ module.exports = grammar({
 
         _pattern: $ => choice(
             $.identifier,
+            $._ground_pattern,
+            $._unary_pattern,
+            $._binary_pattern,
+            $.tuple_pattern,
+            $.record_pattern,
+            seq('(', $._pattern, ')')
+        ),
+
+        _ground_pattern: $ => choice(
             $.pin_pattern,
             $.ignore_pattern,
-            $.alt_pattern,
-            $.capture_pattern,
-            $._atomic_literal,
-            $.tuple_pattern,
-            $.record_pattern
+            $._atomic_literal
         ),
-
-        gather_pattern: $ => seq('...', optional($._pattern)),
-        opt_pattern: $ => seq($._pattern, '?'),
 
         pin_pattern: $ => seq('^', alias($.identifier, 'identifier')),
+
         ignore_pattern: $ => '_',
 
-        alt_pattern: $ => infix_binary_op(
-            $, '|', PREC.ALT_PATTERN, {assoc: 'R', lhs: $._pattern, rhs: $._pattern}
+        _unary_pattern: $ => choice(
+            $.capture_pattern,
+            $.guard_pattern,
         ),
 
-        capture_pattern: $ => infix_binary_op(
-            $, '@', 0, {lhs: $.identifier, rhs: $._pattern}
+        capture_pattern: $ => infix_binary_op($, '@', PREC.CAPTURE_GUARD_PATTERN, {
+            lhs: $.identifier,
+            rhs: $._pattern
+        }),
+
+        guard_pattern: $ => infix_binary_op($, 'when', PREC.CAPTURE_GUARD_PATTERN, {
+            lhs: $._pattern
+        }),
+
+        _binary_pattern: $ => choice(
+            $.alt_pattern
         ),
+
+        alt_pattern: $ => infix_binary_op($, '|', PREC.ALT_PATTERN, {
+            assoc: 'R',
+            lhs: $._pattern,
+            rhs: $._pattern
+        }),
 
         _atomic_literal: $ => choice(
             $.nil_literal,
@@ -410,20 +430,26 @@ module.exports = grammar({
         //---
 
         tuple_literal: $ => prec.left(seq('(', $._tuple_elements, ')')),
+
         _tuple_elements: $ => seq($._expression, ',', separated($._expression, ',')),
 
         tuple_pattern: $ => prec.left(seq('(', $._tuple_pattern_elements, ')')),
+
         _tuple_pattern_elements: $ => choice(
             $.gather_pattern,
             seq($._pattern, ',', separated($._pattern, ','), optional($.gather_pattern)),
         ),
+
+        gather_pattern: $ => seq('...', optional($._pattern)),
 
         //---
         // Record literals and patterns
         //---
 
         record_literal: $ => seq('{', optional($._record_elements), '}'),
+
         _record_elements: $ => separated1($.pair, ','),
+        
         pair: $ => seq($._record_key, '=', $._expression),
 
         _record_key: $ => choice(
@@ -444,10 +470,9 @@ module.exports = grammar({
 
         pair_pattern: $ => seq($._record_key, '=', $._pattern),
 
-        key_pattern: $ => choice(
-            $.identifier,
-            $.opt_pattern
-        ),
+        key_pattern: $ => choice($.identifier, $.opt_pattern),
+
+        opt_pattern: $ => seq($._pattern, '?'),
     }
 });
 
