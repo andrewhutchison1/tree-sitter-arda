@@ -2423,15 +2423,15 @@
     "_dec_float_literal": {
       "type": "TOKEN",
       "content": {
-        "type": "CHOICE",
+        "type": "SEQ",
         "members": [
           {
-            "type": "SEQ",
+            "type": "PATTERN",
+            "value": "[0-9]+"
+          },
+          {
+            "type": "CHOICE",
             "members": [
-              {
-                "type": "PATTERN",
-                "value": "[0-9]+"
-              },
               {
                 "type": "CHOICE",
                 "members": [
@@ -2461,41 +2461,29 @@
                     ]
                   }
                 ]
-              }
-            ]
-          },
-          {
-            "type": "SEQ",
-            "members": [
+              },
               {
-                "type": "CHOICE",
+                "type": "SEQ",
                 "members": [
+                  {
+                    "type": "STRING",
+                    "value": "."
+                  },
                   {
                     "type": "PATTERN",
                     "value": "[0-9]+"
                   },
                   {
-                    "type": "BLANK"
-                  }
-                ]
-              },
-              {
-                "type": "STRING",
-                "value": "."
-              },
-              {
-                "type": "PATTERN",
-                "value": "[0-9]+"
-              },
-              {
-                "type": "CHOICE",
-                "members": [
-                  {
-                    "type": "PATTERN",
-                    "value": "(e|E)(-|\\+)?[0-9]+"
-                  },
-                  {
-                    "type": "BLANK"
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "PATTERN",
+                        "value": "(e|E)(-|\\+)?[0-9]+"
+                      },
+                      {
+                        "type": "BLANK"
+                      }
+                    ]
                   }
                 ]
               }
@@ -2514,59 +2502,52 @@
             "value": "0[xX]"
           },
           {
-            "type": "CHOICE",
+            "type": "SEQ",
             "members": [
               {
-                "type": "SEQ",
+                "type": "PATTERN",
+                "value": "[0-9a-fA-F]+"
+              },
+              {
+                "type": "CHOICE",
                 "members": [
                   {
-                    "type": "PATTERN",
-                    "value": "[0-9a-fA-F]+"
+                    "type": "SEQ",
+                    "members": [
+                      {
+                        "type": "CHOICE",
+                        "members": [
+                          {
+                            "type": "STRING",
+                            "value": "."
+                          },
+                          {
+                            "type": "BLANK"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "PATTERN",
+                        "value": "(p|P)(-|\\+)?[0-9]+"
+                      }
+                    ]
                   },
                   {
-                    "type": "CHOICE",
+                    "type": "SEQ",
                     "members": [
                       {
                         "type": "STRING",
                         "value": "."
                       },
                       {
-                        "type": "BLANK"
-                      }
-                    ]
-                  },
-                  {
-                    "type": "PATTERN",
-                    "value": "(p|P)(-|\\+)?[0-9]+"
-                  }
-                ]
-              },
-              {
-                "type": "SEQ",
-                "members": [
-                  {
-                    "type": "CHOICE",
-                    "members": [
-                      {
                         "type": "PATTERN",
                         "value": "[0-9a-fA-F]+"
                       },
                       {
-                        "type": "BLANK"
+                        "type": "PATTERN",
+                        "value": "(p|P)(-|\\+)?[0-9]+"
                       }
                     ]
-                  },
-                  {
-                    "type": "STRING",
-                    "value": "."
-                  },
-                  {
-                    "type": "PATTERN",
-                    "value": "[0-9a-fA-F]+"
-                  },
-                  {
-                    "type": "PATTERN",
-                    "value": "(p|P)(-|\\+)?[0-9]+"
                   }
                 ]
               }

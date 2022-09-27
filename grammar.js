@@ -358,9 +358,12 @@ module.exports = grammar({
             const digits = /[0-9]+/;
             const exp = /(e|E)(-|\+)?[0-9]+/;
 
-            return token(choice(
-                seq(digits, choice(exp, seq('.', optional(exp)))),
-                seq(optional(digits), '.', digits, optional(exp))
+            return token(seq(
+                digits,
+                choice(
+                    choice(exp, seq('.', optional(exp))),
+                    seq('.', digits, optional(exp))
+                )
             ));
         },
 
@@ -370,10 +373,10 @@ module.exports = grammar({
 
             return token(seq(
                 /0[xX]/,
-                choice(
-                    seq(digits, optional('.'), exp),
-                    seq(optional(digits), '.', digits, exp)
-                )
+                seq(digits, choice(
+                    seq(optional('.'), exp),
+                    seq('.', digits, exp)
+                ))
             ));
         },
 

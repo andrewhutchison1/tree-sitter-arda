@@ -60,9 +60,9 @@ lit.int
 lit.float.dec
 ===
 1e1;
-0.0;
-.1;
-.1E-3
+1e0;
+23332.1;
+223.1E-3
 ---
 (chunk
     (float_literal)
