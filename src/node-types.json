@@ -808,6 +808,10 @@
             "named": true
           },
           {
+            "type": "capture_pattern",
+            "named": true
+          },
+          {
             "type": "float_literal",
             "named": true
           },
@@ -859,6 +863,10 @@
           },
           {
             "type": "bool_literal",
+            "named": true
+          },
+          {
+            "type": "capture_pattern",
             "named": true
           },
           {
@@ -2110,6 +2118,90 @@
     }
   },
   {
+    "type": "capture_pattern",
+    "named": true,
+    "fields": {
+      "L": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "R": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "alt_pattern",
+            "named": true
+          },
+          {
+            "type": "bool_literal",
+            "named": true
+          },
+          {
+            "type": "capture_pattern",
+            "named": true
+          },
+          {
+            "type": "float_literal",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "ignore_pattern",
+            "named": true
+          },
+          {
+            "type": "int_literal",
+            "named": true
+          },
+          {
+            "type": "nil_literal",
+            "named": true
+          },
+          {
+            "type": "pin_pattern",
+            "named": true
+          },
+          {
+            "type": "record_pattern",
+            "named": true
+          },
+          {
+            "type": "str_literal",
+            "named": true
+          },
+          {
+            "type": "sym_literal",
+            "named": true
+          },
+          {
+            "type": "tuple_pattern",
+            "named": true
+          }
+        ]
+      },
+      "op": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "@",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "case_after",
     "named": true,
     "fields": {
@@ -3124,6 +3216,10 @@
             "named": true
           },
           {
+            "type": "capture_pattern",
+            "named": true
+          },
+          {
             "type": "float_literal",
             "named": true
           },
@@ -3772,6 +3868,10 @@
           },
           {
             "type": "bool_literal",
+            "named": true
+          },
+          {
+            "type": "capture_pattern",
             "named": true
           },
           {
@@ -6040,6 +6140,10 @@
         },
         {
           "type": "bool_literal",
+          "named": true
+        },
+        {
+          "type": "capture_pattern",
           "named": true
         },
         {
@@ -11352,6 +11456,10 @@
           "named": true
         },
         {
+          "type": "capture_pattern",
+          "named": true
+        },
+        {
           "type": "float_literal",
           "named": true
         },
@@ -12390,6 +12498,10 @@
           "named": true
         },
         {
+          "type": "capture_pattern",
+          "named": true
+        },
+        {
           "type": "float_literal",
           "named": true
         },
@@ -12638,6 +12750,10 @@
         },
         {
           "type": "bool_literal",
+          "named": true
+        },
+        {
+          "type": "capture_pattern",
           "named": true
         },
         {
@@ -14756,6 +14872,10 @@
             "named": true
           },
           {
+            "type": "capture_pattern",
+            "named": true
+          },
+          {
             "type": "float_literal",
             "named": true
           },
@@ -15200,6 +15320,10 @@
         },
         {
           "type": "bool_literal",
+          "named": true
+        },
+        {
+          "type": "capture_pattern",
           "named": true
         },
         {
@@ -15976,6 +16100,10 @@
     "named": false
   },
   {
+    "type": "@",
+    "named": false
+  },
+  {
     "type": "[",
     "named": false
   },
@@ -16029,11 +16157,11 @@
   },
   {
     "type": "identifier",
-    "named": true
+    "named": false
   },
   {
     "type": "identifier",
-    "named": false
+    "named": true
   },
   {
     "type": "if",

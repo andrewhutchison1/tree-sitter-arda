@@ -136,3 +136,23 @@ end;
         (keyword_params
             (pair_pattern (identifier) (alt_pattern L: (sym_literal) R: (sym_literal))))
         body: (bool_literal)))
+
+===
+pat.capture
+===
+match e cases
+    x @ 0   => true;
+    y @ 0|1 => 1;
+end
+---
+(chunk
+    (match_expression
+        cond: (identifier)
+        (case_match
+            patn: (capture_pattern L: (identifier) R: (int_literal))
+            body: (bool_literal))
+        (case_match
+            patn: (capture_pattern
+                L: (identifier)
+                R: (alt_pattern L: (int_literal) R: (int_literal)))
+            body: (int_literal))))

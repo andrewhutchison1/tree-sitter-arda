@@ -1978,6 +1978,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "capture_pattern"
+        },
+        {
+          "type": "SYMBOL",
           "name": "_atomic_literal"
         },
         {
@@ -2066,6 +2070,39 @@
             "content": {
               "type": "STRING",
               "value": "|"
+            }
+          },
+          {
+            "type": "FIELD",
+            "name": "R",
+            "content": {
+              "type": "SYMBOL",
+              "name": "_pattern"
+            }
+          }
+        ]
+      }
+    },
+    "capture_pattern": {
+      "type": "PREC_LEFT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "FIELD",
+            "name": "L",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            }
+          },
+          {
+            "type": "FIELD",
+            "name": "op",
+            "content": {
+              "type": "STRING",
+              "value": "@"
             }
           },
           {

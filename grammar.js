@@ -7,6 +7,7 @@ const PREC = {
     LITERAL: 4,
     RELATIONAL: 3,
     CONJUNCTION: 2,
+    CAPTURE_PATTERN: 2,
     DISJUNCTION: 1,
     ALT_PATTERN: 1,
     ASSIGNMENT: 0,
@@ -303,6 +304,7 @@ module.exports = grammar({
             $.pin_pattern,
             $.ignore_pattern,
             $.alt_pattern,
+            $.capture_pattern,
             $._atomic_literal,
             $.tuple_pattern,
             $.record_pattern
@@ -316,6 +318,10 @@ module.exports = grammar({
 
         alt_pattern: $ => infix_binary_op(
             $, '|', PREC.ALT_PATTERN, {assoc: 'R', lhs: $._pattern, rhs: $._pattern}
+        ),
+
+        capture_pattern: $ => infix_binary_op(
+            $, '@', 0, {lhs: $.identifier, rhs: $._pattern}
         ),
 
         _atomic_literal: $ => choice(
