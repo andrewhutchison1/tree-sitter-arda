@@ -10,8 +10,8 @@ const PREC = {
     DISJUNCTION: 1,
     ASSIGNMENT: 0,
 
-    GATHER_PATTERN: 5,
-    PREDICATE_PATTERN: 4,
+    PREDICATE_PATTERN: 5,
+    GATHER_PATTERN: 4,
     ALT_PATTERN: 3,
     CAPTURE_PATTERN: 2,
     GUARD_PATTERN: 1,
@@ -141,13 +141,15 @@ module.exports = grammar({
         // Receive expression
         //---
 
-        receive_expression: $ => seq('receive', repeat1($.case_match), optional($.case_after), 'end'),
+        receive_expression: $ => seq($._receive_head, 'end'),
+        _receive_head: $ => seq('receive', repeat1($.case_match), optional($.case_after)),
 
         //---
         // Do expression
         //---
 
-        do_expression: $ => seq('do', $._expression_sequence, 'end'),
+        do_expression: $ => seq($._do_head, 'end'),
+        _do_head: $ => seq('do', $._body),
 
         //---
         // If expression
@@ -178,8 +180,20 @@ module.exports = grammar({
         while_expression: $ => seq(
             'while',
             $._init_condition,
-            'do',
-            field('body', $._body),
+            field('body', choice(
+                $._loop_do_body,
+                $._loop_receive_body,
+            ))
+        ),
+
+        _loop_do_body: $ => seq(
+            $._do_head,
+            optional(seq('else', field('else', $._body))),
+            'end'
+        ),
+
+        _loop_receive_body: $ => seq(
+            alias($._receive_head, $.receive_expression),
             optional(seq('else', field('else', $._body))),
             'end'
         ),
@@ -339,7 +353,7 @@ module.exports = grammar({
         }),
 
         predicate_pattern: $ => infix_binary_op($, '::', PREC.PREDICATE_PATTERN, {
-            lhs: $._pattern
+            lhs: choice($._pattern, $.gather_pattern)
         }),
 
         _binary_pattern: $ => choice(
@@ -432,7 +446,7 @@ module.exports = grammar({
                 )
             )
         ),
-
+ 
         //---
         // Tuple literals and patterns
         //---
@@ -448,7 +462,7 @@ module.exports = grammar({
             seq($._pattern, ',', separated($._pattern, ','), optional($.gather_pattern)),
         ),
 
-        gather_pattern: $ => prec.left(PREC.PREFIX, seq(
+        gather_pattern: $ => prec.left(PREC.GATHER_PATTERN, seq(
             '...',
             optional($._pattern)
         )),
@@ -460,7 +474,7 @@ module.exports = grammar({
         record_literal: $ => seq('{', optional($._record_elements), '}'),
 
         _record_elements: $ => separated1($.pair, ','),
-        
+
         pair: $ => seq($._record_key, '=', $._expression),
 
         _record_key: $ => choice(

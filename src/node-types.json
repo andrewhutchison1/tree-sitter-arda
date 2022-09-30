@@ -4995,7 +4995,7 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": false,
       "types": [
         {
@@ -5012,6 +5012,10 @@
         },
         {
           "type": "assign_expression",
+          "named": true
+        },
+        {
+          "type": "block",
           "named": true
         },
         {
@@ -14020,6 +14024,10 @@
             "named": true
           },
           {
+            "type": "gather_pattern",
+            "named": true
+          },
+          {
             "type": "guard_pattern",
             "named": true
           },
@@ -16126,12 +16134,24 @@
             "named": true
           },
           {
+            "type": "do",
+            "named": false
+          },
+          {
             "type": "do_expression",
             "named": true
           },
           {
             "type": "dot_expression",
             "named": true
+          },
+          {
+            "type": "else",
+            "named": false
+          },
+          {
+            "type": "end",
+            "named": false
           },
           {
             "type": "eq_expression",

@@ -377,6 +377,10 @@ match a := true; not a cases
     0 do z end;
 end;
 
+match (x, y) := f(); g(x) cases
+    (:A, ^y) => ();
+end;
+
 match a cases
     1 => false;
 end
@@ -398,7 +402,6 @@ end
 
     (match_expression
         cond: (identifier)
-
         (case_match
             patn: (int_literal)
             body: (do_expression (identifier)))
@@ -408,11 +411,19 @@ end
     (match_expression
         init: (define_expression L: (identifier) R: (bool_literal))
         cond: (not_expression E: (identifier))
-
         (case_match
             patn: (int_literal)
             body: (do_expression (identifier))))
-            
+
+    (match_expression
+        init: (define_expression
+            L: (tuple_pattern (identifier) (identifier))
+            R: (call_expression E: (identifier)))
+        cond: (call_expression E: (identifier) (positional_args (identifier)))
+        (case_match
+            patn: (tuple_pattern (sym_literal) (pin_pattern))
+            body: (nil_literal)))
+
     (match_expression
         cond: (identifier)
         (case_match
@@ -431,7 +442,7 @@ end
 ---
 (chunk
     (do_expression (int_literal))
-    (do_expression (int_literal) (int_literal) (int_literal)))
+    (do_expression (block (int_literal) (int_literal) (int_literal))))
 
 ===
 expr.receive
@@ -489,6 +500,21 @@ end;
     (while_expression
         cond: (bool_literal)
         body: (block (identifier))))
+
+===
+expr.while.receive
+===
+while true receive
+    0 => 1;
+end
+---
+(chunk
+    (while_expression
+        cond: (bool_literal)
+        body: (receive_expression
+            (case_match
+                patn: (int_literal)
+                body: (int_literal)))))
 
 ===
 expr.call

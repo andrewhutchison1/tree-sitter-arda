@@ -5,7 +5,8 @@
 
 # Predicate patterns (spelled p :: P) are equivalent to
 # p when P(p). Here P is any expression that evaluates to
-# a function callable with one argument.
+# a function callable with one argument that returns a value that
+# evaluates to true or false.
 
 # Assume availability of builtin `int`, `str`, `tuple` predicate patterns
 

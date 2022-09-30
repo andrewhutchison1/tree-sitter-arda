@@ -40,6 +40,8 @@ if (...)        ?= test then true end;
 if (a, ...b)    ?= test then true end;
 if (a, (b, c))  ?= test then true end;
 if (a, (^b, c)) ?= test then true end;
+if (a, ...b)    ?= test then 1 end;
+if (a, b, ...s) ?= test then 0 end;
 ---
 (chunk
     (if_expression
@@ -76,7 +78,19 @@ if (a, (^b, c)) ?= test then true end;
         cond: (test_expression
             L: (tuple_pattern (identifier) (tuple_pattern (pin_pattern) (identifier)))
             R: (identifier))
-        then: (bool_literal)))
+        then: (bool_literal))
+
+    (if_expression
+        cond: (test_expression
+            L: (tuple_pattern (identifier) (gather_pattern (identifier)))
+            R: (identifier))
+        then: (int_literal))
+        
+    (if_expression
+        cond: (test_expression
+            L: (tuple_pattern (identifier) (identifier) (gather_pattern (identifier)))
+            R: (identifier))
+        then: (int_literal)))
 ===
 pat.record
 ===
